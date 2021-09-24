@@ -1,4 +1,8 @@
 package com.drawing.rickandmorty.ui.fragments
 
-class PersonagesFragment {
+import androidx.fragment.app.Fragment
+import com.drawing.rickandmorty.R
+
+class PersonagesFragment: Fragment(R.layout.fragment_personages) {
+
 }

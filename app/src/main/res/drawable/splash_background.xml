@@ -2,19 +2,7 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
 <item android:drawable="@drawable/splash_screen_bg"/>
-    <item android:top="50dp">
-        <bitmap android:gravity="top" android:src="@drawable/rick"/>
-    </item>
-    <item android:top="250dp">
-        <bitmap android:gravity="top" android:src="@drawable/and"/>
-    </item>
-    <item android:top="300dp">
-        <bitmap android:gravity="top" android:src="@drawable/morty"/>
-    </item>
     <item>
-        <bitmap android:gravity="center" android:src="@drawable/falling_morty"/>
-    </item>
-    <item>
-        <bitmap android:gravity="bottom" android:src="@drawable/stepping_rick"/>
+        <bitmap android:gravity="fill" android:src="@drawable/splash_screen_logo"/>
     </item>
 </layer-list>
