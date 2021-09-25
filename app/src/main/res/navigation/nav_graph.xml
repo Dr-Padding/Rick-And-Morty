@@ -7,17 +7,41 @@
     <fragment
         android:id="@+id/personagesFragment"
         android:name="com.drawing.rickandmorty.ui.fragments.PersonagesFragment"
-        android:label="PersonagesFragment" />
+        android:label="PersonagesFragment" >
+        <action
+            android:id="@+id/action_personagesFragment_to_personageDetails"
+            app:destination="@id/personageDetails" />
+    </fragment>
     <fragment
         android:id="@+id/locationsFragment"
         android:name="com.drawing.rickandmorty.ui.fragments.LocationsFragment"
-        android:label="LocationsFragment" />
+        android:label="LocationsFragment" >
+        <action
+            android:id="@+id/action_locationsFragment_to_locationDetails"
+            app:destination="@id/locationDetails" />
+    </fragment>
     <fragment
         android:id="@+id/episodesFragment"
         android:name="com.drawing.rickandmorty.ui.fragments.EpisodesFragment"
-        android:label="EpisodesFragment" />
+        android:label="EpisodesFragment" >
+        <action
+            android:id="@+id/action_episodesFragment_to_episodeDetails"
+            app:destination="@id/episodeDetails" />
+    </fragment>
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.drawing.rickandmorty.ui.fragments.SettingsFragment"
         android:label="SettingsFragment" />
+    <fragment
+        android:id="@+id/episodeDetails"
+        android:name="com.drawing.rickandmorty.ui.fragments.EpisodeDetails"
+        android:label="EpisodeDetails" />
+    <fragment
+        android:id="@+id/personageDetails"
+        android:name="com.drawing.rickandmorty.ui.fragments.PersonageDetails"
+        android:label="PersonageDetails" />
+    <fragment
+        android:id="@+id/locationDetails"
+        android:name="com.drawing.rickandmorty.ui.fragments.LocationDetails"
+        android:label="LocationDetails" />
 </navigation>

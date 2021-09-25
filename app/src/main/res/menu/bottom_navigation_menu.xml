@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id="@+id/PersonagesFragment"
+    <item android:id="@+id/personagesFragment"
         android:title="Personages"
         android:icon="@drawable/personages"/>
 
-    <item android:id="@+id/LocationsFragment"
+    <item android:id="@+id/locationsFragment"
         android:title="Locations"
         android:icon="@drawable/locations"/>
 
-    <item android:id="@+id/EpisodesFragment"
+    <item android:id="@+id/episodesFragment"
         android:title="Episodes"
         android:icon="@drawable/episodes"/>
 
-    <item android:id="@+id/SettingsFragment"
+    <item android:id="@+id/settingsFragment"
         android:title="Settings"
         android:icon="@drawable/settings"/>
 
