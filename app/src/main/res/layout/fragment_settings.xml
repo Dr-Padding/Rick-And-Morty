@@ -105,18 +105,18 @@
         android:textSize="15sp"
         app:layout_constraintBottom_toTopOf="@id/tvDescription"
         app:layout_constraintStart_toStartOf="@id/guideline2"
-        app:layout_constraintTop_toBottomOf="@id/guideline9"
+        app:layout_constraintTop_toBottomOf="@id/guideline7"
         app:layout_constraintVertical_chainStyle="spread" />
 
     <TextView
         android:id="@+id/tvDescription"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="The Zigerions put Jeri and Rick in a simulation to learn the secret to making concentrated dark matter."
         android:textSize="15sp"
-        app:layout_constraintBottom_toTopOf="@id/guideline10"
-        app:layout_constraintStart_toStartOf="@id/guideline2"
+        app:layout_constraintBottom_toTopOf="@id/guideline9"
         app:layout_constraintEnd_toEndOf="@id/guideline3"
+        app:layout_constraintStart_toStartOf="@id/guideline2"
         app:layout_constraintTop_toBottomOf="@id/tvAboutTheApp" />
 
     <View
@@ -128,7 +128,30 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/guideline10" />
+        app:layout_constraintTop_toBottomOf="@id/guideline9" />
+
+    <TextView
+        android:id="@+id/tvAppVersion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="App version"
+        android:textAllCaps="true"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@id/tvVersion"
+        app:layout_constraintStart_toStartOf="@id/guideline2"
+        app:layout_constraintTop_toBottomOf="@id/guideline9"
+        app:layout_constraintVertical_chainStyle="spread" />
+
+    <TextView
+        android:id="@+id/tvVersion"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Rick &amp; Morty v1.0.0"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@id/guideline10"
+        app:layout_constraintEnd_toEndOf="@id/guideline3"
+        app:layout_constraintStart_toStartOf="@id/guideline2"
+        app:layout_constraintTop_toBottomOf="@id/tvAppVersion" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline1"
@@ -184,13 +207,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.46" />
+        app:layout_constraintGuide_percent="0.62" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.66" />
+        app:layout_constraintGuide_percent="0.85" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
