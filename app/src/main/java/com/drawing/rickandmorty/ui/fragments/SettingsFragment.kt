@@ -11,7 +11,7 @@ import com.google.android.material.snackbar.Snackbar
 class SettingsFragment: Fragment(R.layout.fragment_settings) {
 
     private var binding : FragmentSettingsBinding? = null
-    var selectedItemIndex = 0
+    var selectedItemIndex = 1
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -24,7 +24,7 @@ class SettingsFragment: Fragment(R.layout.fragment_settings) {
 
     }
 
-    fun showConfirmationDialog(view: View){
+    private fun showConfirmationDialog(view: View){
         val singleItems = arrayOf("Off", "On", "Follow system settings", "In power saving mode")
         var checkedItem = singleItems[selectedItemIndex]
 
@@ -35,18 +35,22 @@ class SettingsFragment: Fragment(R.layout.fragment_settings) {
                     // Respond to item chosen
                     selectedItemIndex = which
                     checkedItem = singleItems[which]
+                    binding!!.userThemeChoice.text = checkedItem
+                    when(checkedItem){
+                        "Off" -> AppCompateDelegate
+                    }
                 }
                 .setNeutralButton("CANCEL") { dialog, which ->
                     // Respond to neutral button press
                 }
                 .setPositiveButton("OK") { dialog, which ->
                     // Respond to positive button press
-                    showSnackbar(view, "${checkedItem} selected")
+                    showSnackbar(view, "$checkedItem selected")
                 }
                 .show()
     }
 
-    fun showSnackbar(view: View, msg: String){
+    private fun showSnackbar(view: View, msg: String){
         Snackbar.make(view, msg, Snackbar.LENGTH_LONG).show()
     }
 
