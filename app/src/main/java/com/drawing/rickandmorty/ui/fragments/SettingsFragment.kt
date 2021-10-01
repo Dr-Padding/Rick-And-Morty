@@ -2,6 +2,7 @@ package com.drawing.rickandmorty.ui.fragments
 
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import com.drawing.rickandmorty.R
 import com.drawing.rickandmorty.databinding.FragmentSettingsBinding
@@ -25,7 +26,7 @@ class SettingsFragment: Fragment(R.layout.fragment_settings) {
     }
 
     private fun showConfirmationDialog(view: View){
-        val singleItems = arrayOf("Off", "On", "Follow system settings", "In power saving mode")
+        val singleItems = arrayOf("Off", "On", "Follow system settings")
         var checkedItem = singleItems[selectedItemIndex]
 
             MaterialAlertDialogBuilder(requireContext())
@@ -36,9 +37,14 @@ class SettingsFragment: Fragment(R.layout.fragment_settings) {
                     selectedItemIndex = which
                     checkedItem = singleItems[which]
                     binding!!.userThemeChoice.text = checkedItem
-                    when(checkedItem){
-                        "Off" -> AppCompateDelegate
+
+                    val theme = when(which){
+                        0 -> AppCompatDelegate.MODE_NIGHT_NO
+                        1 -> AppCompatDelegate.MODE_NIGHT_YES
+                        else -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
                     }
+
+                    AppCompatDelegate.setDefaultNightMode(theme)
                 }
                 .setNeutralButton("CANCEL") { dialog, which ->
                     // Respond to neutral button press
