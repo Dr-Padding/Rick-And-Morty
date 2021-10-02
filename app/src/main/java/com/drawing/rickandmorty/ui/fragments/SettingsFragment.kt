@@ -45,13 +45,10 @@ class SettingsFragment: Fragment(R.layout.fragment_settings) {
                     }
 
                     AppCompatDelegate.setDefaultNightMode(theme)
+                    showSnackbar(view, "$checkedItem selected")
                 }
                 .setNeutralButton("CANCEL") { dialog, which ->
                     // Respond to neutral button press
-                }
-                .setPositiveButton("OK") { dialog, which ->
-                    // Respond to positive button press
-                    showSnackbar(view, "$checkedItem selected")
                 }
                 .show()
     }
