@@ -7,8 +7,12 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="gray">#d4dadd</color>
+    <color name="gray">#5B6975</color>
     <color name="transparent">#00000000</color>
     <color name="mirage">#0B1E2D</color>
     <color name="zombie_green">#43D049</color>
+    <color name="firefly">#152A3A</color>
+    <color name="battleship_gray">#828282</color>
+    <color name="shuttle_gray">#5B6975</color>
+    <color name="gray_transparent_60">#6E798C99</color>
 </resources>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Style for Bottom Navigation Menu -->
+    <style name="Widget.App.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView.Colored">
+        <item name="backgroundTint">@color/firefly</item>
+        <item name="itemRippleColor">@color/zombie_green</item>
+        <item name="itemIconTint">@drawable/bottom_navigation_selector</item>
+        <item name="itemTextColor">@drawable/bottom_navigation_selector</item>
+    </style>
+</resources>
