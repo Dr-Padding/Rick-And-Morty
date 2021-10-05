@@ -13,7 +13,7 @@
         <item name="android:statusBarColor" tools:targetApi="l">@color/transparent</item>
         <!-- Customize your theme here. -->
         <item name="android:windowBackground">@color/mirage</item>
-        <item name="bottomNavigationStyle">@style/Widget.App.BottomNavigationView</item>
+        <item name="bottomNavigationStyle">@style/Widget.App.BottomNavigationView.Dark</item>
         <item name="android:textColorPrimary">@color/white</item>
         <item name="android:textColorSecondary">@color/white</item>
         <item name="alternativeTextColor">@color/shuttle_gray</item>

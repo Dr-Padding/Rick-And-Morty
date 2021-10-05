@@ -1,10 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Style for Bottom Navigation Menu -->
-    <style name="Widget.App.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView.Colored">
+    <!-- Style for Bottom Navigation Menu Dark Theme -->
+    <style name="Widget.App.BottomNavigationView.Dark" parent="Widget.MaterialComponents.BottomNavigationView.Colored">
         <item name="backgroundTint">@color/firefly</item>
         <item name="itemRippleColor">@color/zombie_green</item>
-        <item name="itemIconTint">@drawable/bottom_navigation_selector</item>
-        <item name="itemTextColor">@drawable/bottom_navigation_selector</item>
+        <item name="itemIconTint">@drawable/bottom_navigation_selector_dark_theme</item>
+        <item name="itemTextColor">@drawable/bottom_navigation_selector_dark_theme</item>
     </style>
+
+    <!-- Style for Bottom Navigation Menu Light Theme -->
+    <style name="Widget.App.BottomNavigationView.Light" parent="Widget.MaterialComponents.BottomNavigationView.Colored">
+        <item name="backgroundTint">@color/white</item>
+        <item name="itemRippleColor">@color/eastern_blue</item>
+        <item name="itemIconTint">@drawable/bottom_navigation_selector_light_theme</item>
+        <item name="itemTextColor">@drawable/bottom_navigation_selector_light_theme</item>
+    </style>
+
+    <!-- Style for MaterialAlertDialog in Settings Fragment -->
+    <style name="MaterialAlertDialog.App" parent="MaterialAlertDialog.MaterialComponents">
+        <item name="shapeAppearance">@style/ShapeAppearance.App.MediumComponent</item>
+    </style>
+
+    <style name="MaterialAlertDialog.App.Title.Text" parent="MaterialAlertDialog.MaterialComponents.Title.Text">
+        <item name="android:textColor">@color/mirage</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="ShapeAppearance.App.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">10dp</item>
+    </style>
+
 </resources>

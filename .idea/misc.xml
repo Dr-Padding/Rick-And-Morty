@@ -3,7 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Azamat_Zarkesh/AndroidStudioProjects/RickandMorty/app/src/main/res/drawable-mdpi/bottom_navigation_selector_light_theme.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/Azamat_Zarkesh/AndroidStudioProjects/RickandMorty/app/src/main/res/drawable/bottom_navigation_selector.xml" value="0.2526041666666667" />
+        <entry key="..\:/Users/Azamat_Zarkesh/AndroidStudioProjects/RickandMorty/app/src/main/res/drawable/bottom_navigation_selector_dark_theme.xml" value="0.2526041666666667" />
+        <entry key="..\:/Users/Azamat_Zarkesh/AndroidStudioProjects/RickandMorty/app/src/main/res/drawable/bottom_navigation_selector_light_theme.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/Azamat_Zarkesh/AndroidStudioProjects/RickandMorty/app/src/main/res/drawable/episodes.xml" value="0.14479166666666668" />
         <entry key="..\:/Users/Azamat_Zarkesh/AndroidStudioProjects/RickandMorty/app/src/main/res/drawable/ic_rick.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/Azamat_Zarkesh/AndroidStudioProjects/RickandMorty/app/src/main/res/drawable/personages.xml" value="0.2526041666666667" />
@@ -18,7 +21,7 @@
         <entry key="..\:/Users/Azamat_Zarkesh/AndroidStudioProjects/RickandMorty/app/src/main/res/layout/fragment_locations.xml" value="0.15896739130434784" />
         <entry key="..\:/Users/Azamat_Zarkesh/AndroidStudioProjects/RickandMorty/app/src/main/res/layout/fragment_personage_details.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/Azamat_Zarkesh/AndroidStudioProjects/RickandMorty/app/src/main/res/layout/fragment_personages.xml" value="0.15896739130434784" />
-        <entry key="..\:/Users/Azamat_Zarkesh/AndroidStudioProjects/RickandMorty/app/src/main/res/layout/fragment_settings.xml" value="0.264" />
+        <entry key="..\:/Users/Azamat_Zarkesh/AndroidStudioProjects/RickandMorty/app/src/main/res/layout/fragment_settings.xml" value="0.4" />
         <entry key="..\:/Users/Azamat_Zarkesh/AndroidStudioProjects/RickandMorty/app/src/main/res/layout/theme_chooser_dialog.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/Azamat_Zarkesh/AndroidStudioProjects/RickandMorty/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.2125" />
       </map>
