@@ -12,7 +12,7 @@ import com.google.android.material.snackbar.Snackbar
 class SettingsFragment: Fragment(R.layout.fragment_settings) {
 
     private var binding : FragmentSettingsBinding? = null
-    var selectedItemIndex = 1
+    private var selectedItemIndex = 0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

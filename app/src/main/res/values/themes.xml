@@ -29,8 +29,9 @@
         <item name="colorOnSurface">@color/mirage</item>
         <item name="alertDialogStyle">@style/MaterialAlertDialog.App</item>
         <item name="materialAlertDialogTitleTextStyle">@style/MaterialAlertDialog.App.Title.Text</item>
+        <item name="android:textSize">18sp</item>
+        <item name="buttonBarNeutralButtonStyle">@style/Widget.App.Button</item>
     </style>
-
 
     <!-- Splash screen theme. -->
     <style name="SplashTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">

@@ -17,6 +17,19 @@
         <item name="android:textColorPrimary">@color/white</item>
         <item name="android:textColorSecondary">@color/white</item>
         <item name="alternativeTextColor">@color/shuttle_gray</item>
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.App.MaterialAlertDialog.Dark</item>
+    </style>
+
+    <!-- MaterialAlertDialog Design Dark -->
+    <style name="ThemeOverlay.App.MaterialAlertDialog.Dark" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorSecondary">@color/eastern_blue</item>
+        <item name="colorSurface">@color/firefly</item>
+        <item name="colorOnSurface">@color/white</item>
+        <item name="alertDialogStyle">@style/MaterialAlertDialog.App.Dark</item>
+        <item name="materialAlertDialogTitleTextStyle">@style/MaterialAlertDialog.App.Title.Text.Dark</item>
+        <item name="android:textSize">18sp</item>
+        <item name="buttonBarNeutralButtonStyle">@style/Widget.App.Button.Dark</item>
     </style>
 
 </resources>
