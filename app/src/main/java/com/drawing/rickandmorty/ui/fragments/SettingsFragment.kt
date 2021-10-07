@@ -1,5 +1,7 @@
 package com.drawing.rickandmorty.ui.fragments
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatDelegate
@@ -13,6 +15,11 @@ class SettingsFragment: Fragment(R.layout.fragment_settings) {
 
     private var binding : FragmentSettingsBinding? = null
     private var selectedItemIndex = 0
+    val sharedPref: SharedPreferences? = activity?.getSharedPreferences(
+        "sharedPref",
+        Context.MODE_PRIVATE
+    )
+    val editor: SharedPreferences.Editor? = sharedPref?.edit()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -22,29 +29,28 @@ class SettingsFragment: Fragment(R.layout.fragment_settings) {
         binding!!.clThemeSettings.setOnClickListener {
             showConfirmationDialog(it)
         }
-
     }
 
     private fun showConfirmationDialog(view: View){
         val singleItems = arrayOf("Off", "On", "Follow system settings")
-        var checkedItem = singleItems[selectedItemIndex]
 
-            MaterialAlertDialogBuilder(requireContext())
+        MaterialAlertDialogBuilder(requireContext())
                 .setTitle("Dark Theme")
                 // Single-choice items (initialized with checked item)
                 .setSingleChoiceItems(singleItems, selectedItemIndex) { dialog, which ->
                     // Respond to item chosen
                     selectedItemIndex = which
-                    checkedItem = singleItems[which]
+                    val checkedItem = singleItems[which]
                     binding!!.userThemeChoice.text = checkedItem
 
                     val theme = when(which){
-                        0 -> AppCompatDelegate.MODE_NIGHT_NO
-                        1 -> AppCompatDelegate.MODE_NIGHT_YES
-                        else -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+                        0 -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                        1 -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                        else -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
                     }
 
-                    AppCompatDelegate.setDefaultNightMode(theme)
+
+                    //AppCompatDelegate.setDefaultNightMode(theme)
                     showSnackbar(view, "$checkedItem selected")
                 }
                 .setNeutralButton("CANCEL") { dialog, which ->
