@@ -17,14 +17,20 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
-        //val theme = sharedPref.getInt()
-
-        //val defaultNightMode = getSharedPreferences("sharedPref", MODE_PRIVATE).getString("Theme", null)
         setTheme(R.style.Theme_Light)
+        val defaultNightMode = getSharedPreferences("sharedPref", MODE_PRIVATE).getInt("Theme", AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+        AppCompatDelegate.setDefaultNightMode(defaultNightMode)
+        when(defaultNightMode){
+            AppCompatDelegate.MODE_NIGHT_NO -> setTheme(R.style.Theme_Light)
+            AppCompatDelegate.MODE_NIGHT_YES -> setTheme(R.style.Theme_Dark)
+            else -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+        }
 
 
-        //AppCompatDelegate.setDefaultNightMode(defaultNightMode)
+
+
+
+
 
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)

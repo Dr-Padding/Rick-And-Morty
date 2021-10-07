@@ -43,14 +43,17 @@ class SettingsFragment: Fragment(R.layout.fragment_settings) {
                     val checkedItem = singleItems[which]
                     binding!!.userThemeChoice.text = checkedItem
 
-                    val theme = when(which){
-                        0 -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                        1 -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                        else -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+                    val themeMode = when(which){
+                        0 -> AppCompatDelegate.MODE_NIGHT_NO
+                        1 -> AppCompatDelegate.MODE_NIGHT_YES
+                        else -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
                     }
 
+                    editor?.apply {
+                        putInt("themeMode", themeMode)
+                    }?.apply()
 
-                    //AppCompatDelegate.setDefaultNightMode(theme)
+                    AppCompatDelegate.setDefaultNightMode(themeMode)
                     showSnackbar(view, "$checkedItem selected")
                 }
                 .setNeutralButton("CANCEL") { dialog, which ->
