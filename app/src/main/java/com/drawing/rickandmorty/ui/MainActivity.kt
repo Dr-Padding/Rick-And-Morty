@@ -9,6 +9,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.drawing.rickandmorty.R
 import com.drawing.rickandmorty.databinding.ActivityMainBinding
 import com.drawing.rickandmorty.ui.fragments.SettingsFragment
+import com.drawing.rickandmorty.util.Constants
 import java.util.*
 import kotlin.concurrent.schedule
 
@@ -17,20 +18,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        setTheme(R.style.Theme_Light)
-        val defaultNightMode = getSharedPreferences("sharedPref", MODE_PRIVATE).getInt("Theme", AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+        setTheme(R.style.AppTheme)
+        val defaultNightMode = getSharedPreferences("sharedPref", MODE_PRIVATE)
+            .getInt("themeMode", Constants.FOLLOW_SYSTEM_THEME)
         AppCompatDelegate.setDefaultNightMode(defaultNightMode)
-        when(defaultNightMode){
-            AppCompatDelegate.MODE_NIGHT_NO -> setTheme(R.style.Theme_Light)
-            AppCompatDelegate.MODE_NIGHT_YES -> setTheme(R.style.Theme_Dark)
-            else -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-        }
-
-
-
-
-
-
 
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
