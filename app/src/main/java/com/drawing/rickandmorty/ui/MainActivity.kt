@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
         val defaultNightMode = getSharedPreferences("sharedPref", MODE_PRIVATE)
-            .getInt("themeMode", Constants.FOLLOW_SYSTEM_THEME)
+            .getInt("themeMode", Constants.LIGHT_THEME)
         AppCompatDelegate.setDefaultNightMode(defaultNightMode)
 
         super.onCreate(savedInstanceState)

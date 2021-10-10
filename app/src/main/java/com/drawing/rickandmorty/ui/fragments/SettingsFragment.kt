@@ -17,7 +17,8 @@ import com.google.android.material.snackbar.Snackbar
 class SettingsFragment: Fragment(R.layout.fragment_settings) {
 
     private var binding : FragmentSettingsBinding? = null
-    //var fragmentReload = false
+    var radioButtonPressed = requireContext().getSharedPreferences("sharedPref", AppCompatActivity.MODE_PRIVATE)
+        .getBoolean("radioButtonPressed", false)
 
     private val editor: SharedPreferences.Editor by lazy {
         requireActivity().getSharedPreferences(
@@ -34,7 +35,7 @@ class SettingsFragment: Fragment(R.layout.fragment_settings) {
         val singleItems = arrayOf("Off", "On", "Follow system settings")
 
         val defaultNightMode = requireContext().getSharedPreferences("sharedPref", AppCompatActivity.MODE_PRIVATE)
-            .getInt("themeMode", Constants.FOLLOW_SYSTEM_THEME)
+            .getInt("themeMode", Constants.LIGHT_THEME)
 
         var selectedItemIndex = when(defaultNightMode){
             Constants.LIGHT_THEME -> 0
@@ -45,7 +46,10 @@ class SettingsFragment: Fragment(R.layout.fragment_settings) {
         var checkedItem = singleItems[selectedItemIndex]
 
             binding!!.userThemeChoice.text = checkedItem
-            showSnackbar(view, "$checkedItem selected")
+
+            if(radioButtonPressed) {
+                showSnackbar(view, "$checkedItem selected")
+            }
 
         binding!!.clThemeSettings.setOnClickListener {
             //showConfirmationDialog(it)
@@ -56,7 +60,7 @@ class SettingsFragment: Fragment(R.layout.fragment_settings) {
                 .setSingleChoiceItems(singleItems, selectedItemIndex) { dialog, which ->
                     // Respond to item chosen
                     selectedItemIndex = which
-
+                    radioButtonPressed = true
 
                     val themeMode = when(which){
                         0 -> Constants.LIGHT_THEME
@@ -66,7 +70,10 @@ class SettingsFragment: Fragment(R.layout.fragment_settings) {
 
                     editor.apply {
                         putInt("themeMode", themeMode)
+                        putBoolean("radioButtonPressed", radioButtonPressed)
                     }.apply()
+
+                    var checkedItem = singleItems[which]
 
                     AppCompatDelegate.setDefaultNightMode(themeMode)
                     binding!!.userThemeChoice.text = checkedItem
