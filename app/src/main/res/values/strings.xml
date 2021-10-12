@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Rick and Morty</string>
+    <string name="dark_theme_mode_off">Off</string>
+    <string name="dark_theme_mode_on">On</string>
+    <string name="dark_theme_mode_follow_system_settings">Follow system settings</string>
+    <string name="alert_dialog_title">Dark Theme</string>
+    <string name="selected">selected</string>
+    <string name="CANCEL">CANCEL</string>
+    <string name="find_a_character">Find a character</string>
+
+
 </resources>

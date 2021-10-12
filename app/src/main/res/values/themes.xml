@@ -19,6 +19,7 @@
         <item name="android:textColorSecondary">@color/mirage</item>
         <item name="alternativeTextColor">@color/battleship_gray</item>
         <item name="materialAlertDialogTheme">@style/ThemeOverlay.App.MaterialAlertDialog.Light</item>
+        <item name="searchViewStyle">@style/SearchViewLight</item>
     </style>
 
     <!-- MaterialAlertDialog Design Light -->
