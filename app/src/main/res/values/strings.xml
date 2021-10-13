@@ -7,6 +7,7 @@
     <string name="selected">selected</string>
     <string name="CANCEL">CANCEL</string>
     <string name="find_a_character">Find a character</string>
+    <string name="total_characters">Total characters:</string>
 
 
 </resources>
