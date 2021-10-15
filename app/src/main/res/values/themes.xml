@@ -19,7 +19,9 @@
         <item name="android:textColorSecondary">@color/mirage</item>
         <item name="alternativeTextColor">@color/battleship_gray</item>
         <item name="materialAlertDialogTheme">@style/ThemeOverlay.App.MaterialAlertDialog.Light</item>
-        <item name="searchViewStyle">@style/SearchViewLight</item>
+        <item name="searchViewBackground">@drawable/searchview_background_light</item>
+        <item name="filterImageButtonBackground">@drawable/filter_image_button_background_light</item>
+        <item name="verticalLineInSearchView">@color/cotton_seed</item>
     </style>
 
     <!-- MaterialAlertDialog Design Light -->

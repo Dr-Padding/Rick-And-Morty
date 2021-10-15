@@ -65,10 +65,4 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">10dp</item>
     </style>
-
-    <!-- Style for Search View - Light -->
-    <style name="SearchViewLight" parent="Widget.AppCompat.SearchView">
-        <item name="backgroundColor">@color/zombie_green</item>
-    </style>
-
 </resources>

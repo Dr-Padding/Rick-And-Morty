@@ -18,6 +18,9 @@
         <item name="android:textColorSecondary">@color/white</item>
         <item name="alternativeTextColor">@color/shuttle_gray</item>
         <item name="materialAlertDialogTheme">@style/ThemeOverlay.App.MaterialAlertDialog.Dark</item>
+        <item name="searchViewBackground">@drawable/searchview_background_dark</item>
+        <item name="filterImageButtonBackground">@drawable/filter_image_button_background_dark</item>
+        <item name="verticalLineInSearchView">@color/shuttle_gray</item>
     </style>
 
     <!-- MaterialAlertDialog Design Dark -->

@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <attr name="alternativeTextColor" format="color"/>
+    <attr name="searchViewBackground" format="reference"/>
+    <attr name="filterImageButtonBackground" format="reference"/>
+    <attr name="verticalLineInSearchView" format="color"/>
 </resources>
