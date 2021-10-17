@@ -18,6 +18,8 @@
         <entry key="..\:/Users/Azamat_Zarkesh/AndroidStudioProjects/RickandMorty/app/src/main/res/drawable/personages.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/Azamat_Zarkesh/AndroidStudioProjects/RickandMorty/app/src/main/res/drawable/searchview_background.xml" value="0.264" />
         <entry key="..\:/Users/Azamat_Zarkesh/AndroidStudioProjects/RickandMorty/app/src/main/res/drawable/searchview_background_dark.xml" value="0.2526041666666667" />
+        <entry key="..\:/Users/Azamat_Zarkesh/AndroidStudioProjects/RickandMorty/app/src/main/res/drawable/searchview_background_for_episodes_dark.xml" value="0.2526041666666667" />
+        <entry key="..\:/Users/Azamat_Zarkesh/AndroidStudioProjects/RickandMorty/app/src/main/res/drawable/searchview_background_for_episodes_light.xml" value="0.264" />
         <entry key="..\:/Users/Azamat_Zarkesh/AndroidStudioProjects/RickandMorty/app/src/main/res/drawable/searchview_background_light.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/Azamat_Zarkesh/AndroidStudioProjects/RickandMorty/app/src/main/res/drawable/splash_background.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/Azamat_Zarkesh/AndroidStudioProjects/RickandMorty/app/src/main/res/drawable/splash_screen_bg.xml" value="0.2526041666666667" />
@@ -25,7 +27,7 @@
         <entry key="..\:/Users/Azamat_Zarkesh/AndroidStudioProjects/RickandMorty/app/src/main/res/layout/activity_main.xml" value="0.1716485507246377" />
         <entry key="..\:/Users/Azamat_Zarkesh/AndroidStudioProjects/RickandMorty/app/src/main/res/layout/activity_splash_screen.xml" value="0.264" />
         <entry key="..\:/Users/Azamat_Zarkesh/AndroidStudioProjects/RickandMorty/app/src/main/res/layout/fragment_episode_details.xml" value="0.23645833333333333" />
-        <entry key="..\:/Users/Azamat_Zarkesh/AndroidStudioProjects/RickandMorty/app/src/main/res/layout/fragment_episodes.xml" value="0.15896739130434784" />
+        <entry key="..\:/Users/Azamat_Zarkesh/AndroidStudioProjects/RickandMorty/app/src/main/res/layout/fragment_episodes.xml" value="0.264" />
         <entry key="..\:/Users/Azamat_Zarkesh/AndroidStudioProjects/RickandMorty/app/src/main/res/layout/fragment_location_details.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/Azamat_Zarkesh/AndroidStudioProjects/RickandMorty/app/src/main/res/layout/fragment_locations.xml" value="0.264" />
         <entry key="..\:/Users/Azamat_Zarkesh/AndroidStudioProjects/RickandMorty/app/src/main/res/layout/fragment_personage_details.xml" value="0.23645833333333333" />

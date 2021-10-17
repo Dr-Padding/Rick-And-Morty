@@ -4,4 +4,5 @@
     <attr name="searchViewBackground" format="reference"/>
     <attr name="filterImageButtonBackground" format="reference"/>
     <attr name="verticalLineInSearchView" format="color"/>
+    <attr name="searchViewBackgroundForEpisodesFragment" format="reference"/>
 </resources>
