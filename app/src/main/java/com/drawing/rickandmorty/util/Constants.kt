@@ -7,5 +7,6 @@ class Constants {
         const val LIGHT_THEME = AppCompatDelegate.MODE_NIGHT_NO
         const val DARK_THEME = AppCompatDelegate.MODE_NIGHT_YES
         const val FOLLOW_SYSTEM_THEME = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+        const val BASE_URL = "https://rickandmortyapi.com"
     }
 }
