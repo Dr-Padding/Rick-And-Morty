@@ -6,7 +6,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.drawing.rickandmorty.R
-import com.drawing.rickandmorty.adapters.Adapter
+import com.drawing.rickandmorty.adapters.PersonagesAdapter
 import com.drawing.rickandmorty.databinding.FragmentPersonagesBinding
 import com.drawing.rickandmorty.ui.MainActivity
 import com.drawing.rickandmorty.ui.ViewModel
@@ -16,7 +16,7 @@ class PersonagesFragment: Fragment(R.layout.fragment_personages) {
 
     private var binding: FragmentPersonagesBinding? = null
     lateinit var viewModel: ViewModel
-    lateinit var charactersAdapter: Adapter
+    lateinit var charactersAdapter: PersonagesAdapter
 
     val TAG = "PersonagesFragment"
 
@@ -44,8 +44,9 @@ class PersonagesFragment: Fragment(R.layout.fragment_personages) {
                 is Resource.Loading ->
                     showProgressBar()
             }
-
         })
+
+
     }
 
     private fun hideProgressBar(){
@@ -57,7 +58,7 @@ class PersonagesFragment: Fragment(R.layout.fragment_personages) {
     }
 
     private fun setUpRecyclerView(){
-        charactersAdapter = Adapter()
+        charactersAdapter = PersonagesAdapter()
         binding!!.rvPersonages.apply {
             adapter = charactersAdapter
             layoutManager = LinearLayoutManager(activity)

@@ -22,6 +22,7 @@
         <item name="filterImageButtonBackground">@drawable/filter_image_button_background_dark</item>
         <item name="verticalLineInSearchView">@color/shuttle_gray</item>
         <item name="searchViewBackgroundForEpisodesFragment">@drawable/searchview_background_for_episodes_dark</item>
+        <item name="personageStatusTextColor">@color/zombie_green</item>
     </style>
 
     <!-- MaterialAlertDialog Design Dark -->
