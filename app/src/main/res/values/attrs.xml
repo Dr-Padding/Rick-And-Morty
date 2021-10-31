@@ -5,5 +5,5 @@
     <attr name="filterImageButtonBackground" format="reference"/>
     <attr name="verticalLineInSearchView" format="color"/>
     <attr name="searchViewBackgroundForEpisodesFragment" format="reference"/>
-    <attr name="personageStatusTextColor" format="color"/>
+    <attr name="alivePersonageStatusTextColor" format="color"/>
 </resources>
