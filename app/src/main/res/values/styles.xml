@@ -65,15 +65,4 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">10dp</item>
     </style>
-
-   <!-- &lt;!&ndash; Alive personages status color - Light &ndash;&gt;
-    <style name="AlivePersonagesStatusColor.Light" parent="Widget.MaterialComponents.TextView">
-        <item name="android:textColor">@color/jade_green</item>
-    </style>
-
-    &lt;!&ndash; Alive personages status color - Dark &ndash;&gt;
-    <style name="AlivePersonagesStatusColor.Dark" parent="Widget.MaterialComponents.TextView">
-        <item name="android:textColor">@color/zombie_green</item>
-    </style>-->
-
 </resources>

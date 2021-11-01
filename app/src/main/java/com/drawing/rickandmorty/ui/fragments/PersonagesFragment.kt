@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.drawing.rickandmorty.R
 import com.drawing.rickandmorty.adapters.PersonagesAdapter
@@ -17,6 +18,7 @@ class PersonagesFragment: Fragment(R.layout.fragment_personages) {
     private var binding: FragmentPersonagesBinding? = null
     lateinit var viewModel: ViewModel
     lateinit var charactersAdapter: PersonagesAdapter
+    private var toggle = false
 
     val TAG = "PersonagesFragment"
 
@@ -45,8 +47,6 @@ class PersonagesFragment: Fragment(R.layout.fragment_personages) {
                     showProgressBar()
             }
         })
-
-
     }
 
     private fun hideProgressBar(){
@@ -61,9 +61,22 @@ class PersonagesFragment: Fragment(R.layout.fragment_personages) {
         charactersAdapter = PersonagesAdapter()
         binding!!.rvPersonages.apply {
             adapter = charactersAdapter
-            layoutManager = LinearLayoutManager(activity)
+            layoutManager = GridLayoutManager(activity, 1)
+            binding!!.ivBurgerMenu.setOnClickListener {
+                layoutManager = GridLayoutManager(activity, 2)
+                charactersAdapter.notifyItemRangeChanged(0, charactersAdapter.itemCount)
+            }
+           /* binding!!.ivBurgerMenu.setOnClickListener {
+                if(!toggle) {
+                    layoutManager = GridLayoutManager(activity, 2)
+                    charactersAdapter.ViewHolder()
+                    toggle = true
+                }else{
+                    layoutManager = LinearLayoutManager(activity)
+                    toggle = false
+                }
+            }*/
         }
-
     }
 
     override fun onDestroy() {

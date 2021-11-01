@@ -1,7 +1,6 @@
 package com.drawing.rickandmorty.adapters
 
 
-
 import android.content.Context
 import android.content.res.Resources
 import android.graphics.Color
@@ -21,16 +20,20 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.drawing.rickandmorty.R
 import com.drawing.rickandmorty.databinding.ItemCharacterPreviewV1Binding
+import com.drawing.rickandmorty.databinding.ItemCharacterPreviewV2Binding
 import com.drawing.rickandmorty.models.Result
+import com.drawing.rickandmorty.util.Constants
 
 class PersonagesAdapter : RecyclerView.Adapter<PersonagesAdapter.ViewHolder>() {
 
-    inner class ViewHolder(val binding: ItemCharacterPreviewV1Binding): RecyclerView.ViewHolder(binding.root){
-        fun bind(character: Result){
+    inner class ViewHolder(val binding: ItemCharacterPreviewV1Binding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-                Glide.with(itemView.context).load(character.image).into(binding.ivAvatar)
+        //constructor(bindingV2: ItemCharacterPreviewV2Binding) : this()
 
-                val spannableString = SpannableString(character.status)
+        fun bind(character: Result) {
+            Glide.with(itemView.context).load(character.image).into(binding.ivAvatar)
+            val spannableString = SpannableString(character.status)
 
             @ColorInt
             fun Context.getColorFromAttr(
@@ -42,36 +45,46 @@ class PersonagesAdapter : RecyclerView.Adapter<PersonagesAdapter.ViewHolder>() {
                 return typedValue.data
             }
 
-                when (character.status) {
-                    "Alive" -> {
-                    val fColor = ForegroundColorSpan(binding.root.context.getColorFromAttr(
-                        R.attr.alivePersonageStatusTextColor
-                    ))
-                    spannableString.setSpan(fColor,0, 5, Spannable.SPAN_INCLUSIVE_EXCLUSIVE)
+            when (character.status) {
+                "Alive" -> {
+                    val fColor = ForegroundColorSpan(
+                        binding.root.context.getColorFromAttr(
+                            R.attr.alivePersonageStatusTextColor
+                        )
+                    )
+                    spannableString.setSpan(fColor, 0, 5, Spannable.SPAN_INCLUSIVE_EXCLUSIVE)
                 }
-                    "Dead" -> {
-                    val fColor = ForegroundColorSpan(ContextCompat.getColor(binding.root.context, R.color.valentine_red))
-                    spannableString.setSpan(fColor,0, 4, Spannable.SPAN_INCLUSIVE_EXCLUSIVE)
+                "Dead" -> {
+                    val fColor = ForegroundColorSpan(
+                        ContextCompat.getColor(
+                            binding.root.context,
+                            R.color.valentine_red
+                        )
+                    )
+                    spannableString.setSpan(fColor, 0, 4, Spannable.SPAN_INCLUSIVE_EXCLUSIVE)
                 }
-                    else -> {
+                else -> {
 
                 }
-                }
+            }
 
-                binding.tvStatus.text = spannableString
+            binding.tvStatus.text = spannableString
 
-                binding.tvName.text = character.name
-                binding.tvSpeciesAndGender.text = character.species + ", " + character.gender
+            binding.tvName.text = character.name
+            binding.tvSpeciesAndGender.text = character.species + ", " + character.gender
 
-               itemView.setOnClickListener{
-                    onItemClickListener?.let { it(character) }
-                }
+            itemView.setOnClickListener {
+                onItemClickListener?.let { it(character) }
+            }
         }
+    }
 
+    inner class AnotherViewHolder(val binding: ItemCharacterPreviewV2Binding) :
+        RecyclerView.ViewHolder(binding.root) {
 
     }
 
-    private val differCallback = object : DiffUtil.ItemCallback<Result>(){
+    private val differCallback = object : DiffUtil.ItemCallback<Result>() {
         override fun areItemsTheSame(oldItem: Result, newItem: Result): Boolean {
             return oldItem.id == newItem.id
         }
@@ -84,9 +97,17 @@ class PersonagesAdapter : RecyclerView.Adapter<PersonagesAdapter.ViewHolder>() {
     val differ = AsyncListDiffer(this, differCallback)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemCharacterPreviewV1Binding
-            .inflate(LayoutInflater.from(parent.context), parent, false)
+               
+        if (viewType == Constants.VIEW_TYPE_BIG){
+            val binding = ItemCharacterPreviewV2Binding
+                .inflate(LayoutInflater.from(parent.context), parent, false)
+        }else{
+            val binding = ItemCharacterPreviewV1Binding
+                .inflate(LayoutInflater.from(parent.context), parent, false)
+        }
         return ViewHolder(binding)
+
+
     }
 
     override fun getItemCount(): Int {
@@ -101,7 +122,7 @@ class PersonagesAdapter : RecyclerView.Adapter<PersonagesAdapter.ViewHolder>() {
 
     private var onItemClickListener: ((Result) -> Unit)? = null
 
-    fun setOnItemClickListener(listener: (Result) -> Unit){
+    fun setOnItemClickListener(listener: (Result) -> Unit) {
 
         onItemClickListener = listener
     }
