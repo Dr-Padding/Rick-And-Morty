@@ -10,5 +10,7 @@ class Constants {
         const val BASE_URL = "https://rickandmortyapi.com"
         const val VIEW_TYPE_SMALL = 1
         const val VIEW_TYPE_BIG = 2
+        const val SPAN_COUNT_ONE = 1
+        const val SPAN_COUNT_TWO = 2
     }
 }

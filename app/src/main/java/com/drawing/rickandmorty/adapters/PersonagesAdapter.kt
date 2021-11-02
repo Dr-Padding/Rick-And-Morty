@@ -2,8 +2,6 @@ package com.drawing.rickandmorty.adapters
 
 
 import android.content.Context
-import android.content.res.Resources
-import android.graphics.Color
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
@@ -13,9 +11,9 @@ import android.view.ViewGroup
 import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.drawing.rickandmorty.R
@@ -24,12 +22,10 @@ import com.drawing.rickandmorty.databinding.ItemCharacterPreviewV2Binding
 import com.drawing.rickandmorty.models.Result
 import com.drawing.rickandmorty.util.Constants
 
-class PersonagesAdapter : RecyclerView.Adapter<PersonagesAdapter.ViewHolder>() {
+class PersonagesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    inner class ViewHolder(val binding: ItemCharacterPreviewV1Binding) :
+    inner class View1ViewHolder(private val binding: ItemCharacterPreviewV1Binding) :
         RecyclerView.ViewHolder(binding.root) {
-
-        //constructor(bindingV2: ItemCharacterPreviewV2Binding) : this()
 
         fun bind(character: Result) {
             Glide.with(itemView.context).load(character.image).into(binding.ivAvatar)
@@ -69,18 +65,61 @@ class PersonagesAdapter : RecyclerView.Adapter<PersonagesAdapter.ViewHolder>() {
             }
 
             binding.tvStatus.text = spannableString
-
             binding.tvName.text = character.name
             binding.tvSpeciesAndGender.text = character.species + ", " + character.gender
-
             itemView.setOnClickListener {
                 onItemClickListener?.let { it(character) }
             }
         }
     }
 
-    inner class AnotherViewHolder(val binding: ItemCharacterPreviewV2Binding) :
+    inner class View2ViewHolder(private val binding: ItemCharacterPreviewV2Binding) :
         RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(character: Result) {
+            Glide.with(itemView.context).load(character.image).into(binding.ivAvatar)
+            val spannableString = SpannableString(character.status)
+
+            @ColorInt
+            fun Context.getColorFromAttr(
+                @AttrRes attrColor: Int,
+                typedValue: TypedValue = TypedValue(),
+                resolveRefs: Boolean = true
+            ): Int {
+                theme.resolveAttribute(attrColor, typedValue, resolveRefs)
+                return typedValue.data
+            }
+
+            when (character.status) {
+                "Alive" -> {
+                    val fColor = ForegroundColorSpan(
+                        binding.root.context.getColorFromAttr(
+                            R.attr.alivePersonageStatusTextColor
+                        )
+                    )
+                    spannableString.setSpan(fColor, 0, 5, Spannable.SPAN_INCLUSIVE_EXCLUSIVE)
+                }
+                "Dead" -> {
+                    val fColor = ForegroundColorSpan(
+                        ContextCompat.getColor(
+                            binding.root.context,
+                            R.color.valentine_red
+                        )
+                    )
+                    spannableString.setSpan(fColor, 0, 4, Spannable.SPAN_INCLUSIVE_EXCLUSIVE)
+                }
+                else -> {
+
+                }
+            }
+
+            binding.tvStatus.text = spannableString
+            binding.tvName.text = character.name
+            binding.tvSpeciesAndGender.text = character.species + ", " + character.gender
+            itemView.setOnClickListener {
+                onItemClickListener?.let { it(character) }
+            }
+        }
 
     }
 
@@ -93,20 +132,27 @@ class PersonagesAdapter : RecyclerView.Adapter<PersonagesAdapter.ViewHolder>() {
             return oldItem == newItem
         }
     }
-
     val differ = AsyncListDiffer(this, differCallback)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-               
-        if (viewType == Constants.VIEW_TYPE_BIG){
+    override fun getItemViewType(position: Int): Int {
+        //val position = mLayoutManager.spanCount
+        return if(position == Constants.SPAN_COUNT_ONE){
+            Constants.VIEW_TYPE_SMALL
+        }else{
+            Constants.VIEW_TYPE_BIG
+        }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return if (viewType == Constants.VIEW_TYPE_BIG){
             val binding = ItemCharacterPreviewV2Binding
                 .inflate(LayoutInflater.from(parent.context), parent, false)
+            View2ViewHolder(binding)
         }else{
             val binding = ItemCharacterPreviewV1Binding
                 .inflate(LayoutInflater.from(parent.context), parent, false)
+            View1ViewHolder(binding)
         }
-        return ViewHolder(binding)
-
 
     }
 
@@ -115,9 +161,14 @@ class PersonagesAdapter : RecyclerView.Adapter<PersonagesAdapter.ViewHolder>() {
     }
 
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val character = differ.currentList[position]
-        holder.bind(character)
+
+        if (position == Constants.VIEW_TYPE_SMALL) {
+            (holder as View1ViewHolder).bind(character)
+        } else {
+            (holder as View2ViewHolder).bind(character)
+        }
     }
 
     private var onItemClickListener: ((Result) -> Unit)? = null

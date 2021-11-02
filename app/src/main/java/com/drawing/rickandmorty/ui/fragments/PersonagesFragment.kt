@@ -3,6 +3,7 @@ package com.drawing.rickandmorty.ui.fragments
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,9 +12,10 @@ import com.drawing.rickandmorty.adapters.PersonagesAdapter
 import com.drawing.rickandmorty.databinding.FragmentPersonagesBinding
 import com.drawing.rickandmorty.ui.MainActivity
 import com.drawing.rickandmorty.ui.ViewModel
+import com.drawing.rickandmorty.util.Constants
 import com.drawing.rickandmorty.util.Resource
 
-class PersonagesFragment: Fragment(R.layout.fragment_personages) {
+class PersonagesFragment : Fragment(R.layout.fragment_personages) {
 
     private var binding: FragmentPersonagesBinding? = null
     lateinit var viewModel: ViewModel
@@ -28,11 +30,11 @@ class PersonagesFragment: Fragment(R.layout.fragment_personages) {
         viewModel = (activity as MainActivity).viewModel
         setUpRecyclerView()
         viewModel.charactersLiveData.observe(viewLifecycleOwner, { response ->
-            when(response) {
+            when (response) {
                 is Resource.Success -> {
                     hideProgressBar()
                     response.data?.let { allCharactersResponse ->
-                    charactersAdapter.differ.submitList(allCharactersResponse.results)
+                        charactersAdapter.differ.submitList(allCharactersResponse.results)
 
                     }
                 }
@@ -49,33 +51,42 @@ class PersonagesFragment: Fragment(R.layout.fragment_personages) {
         })
     }
 
-    private fun hideProgressBar(){
+    private fun hideProgressBar() {
         binding!!.pbPaginationProgressBar.visibility = View.INVISIBLE
     }
 
-    private fun showProgressBar(){
+    private fun showProgressBar() {
         binding!!.pbPaginationProgressBar.visibility = View.VISIBLE
     }
 
-    private fun setUpRecyclerView(){
+    private fun setUpRecyclerView() {
         charactersAdapter = PersonagesAdapter()
         binding!!.rvPersonages.apply {
             adapter = charactersAdapter
-            layoutManager = GridLayoutManager(activity, 1)
+            layoutManager = LinearLayoutManager(activity)
+
             binding!!.ivBurgerMenu.setOnClickListener {
-                layoutManager = GridLayoutManager(activity, 2)
-                charactersAdapter.notifyItemRangeChanged(0, charactersAdapter.itemCount)
-            }
-           /* binding!!.ivBurgerMenu.setOnClickListener {
-                if(!toggle) {
-                    layoutManager = GridLayoutManager(activity, 2)
-                    charactersAdapter.ViewHolder()
+                if (!toggle) {
+                    layoutManager = GridLayoutManager(activity, Constants.SPAN_COUNT_TWO)
+                    charactersAdapter.getItemViewType(2)
+                    binding!!.ivBurgerMenu.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            binding!!.root.context,
+                            R.drawable.ic_grid_view
+                        )
+                    )
                     toggle = true
-                }else{
+                } else {
                     layoutManager = LinearLayoutManager(activity)
+                    binding!!.ivBurgerMenu.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            binding!!.root.context,
+                            R.drawable.ic_list_view
+                        )
+                    )
                     toggle = false
                 }
-            }*/
+            }
         }
     }
 
