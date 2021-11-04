@@ -6,50 +6,50 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/ivAvatar"
+        android:id="@+id/ivAvatarV2"
         android:layout_width="120dp"
         android:layout_height="122dp"
         android:scaleType="centerCrop"
-        app:layout_constraintBottom_toTopOf="@id/tvStatus"
+        app:layout_constraintBottom_toTopOf="@id/tvStatusV2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tvStatus"
+        android:id="@+id/tvStatusV2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="Alive"
         android:layout_marginTop="15dp"
-        app:layout_constraintBottom_toTopOf="@id/tvName"
+        app:layout_constraintBottom_toTopOf="@id/tvNameV2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ivAvatar"
+        app:layout_constraintTop_toBottomOf="@id/ivAvatarV2"
         />
 
     <TextView
-        android:id="@+id/tvName"
+        android:id="@+id/tvNameV2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/tvSpeciesAndGender"
+        app:layout_constraintBottom_toTopOf="@id/tvSpeciesAndGenderV2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvStatus"
+        app:layout_constraintTop_toBottomOf="@id/tvStatusV2"
         tools:text="Rick Sanchez" />
 
     <TextView
-        android:id="@+id/tvSpeciesAndGender"
+        android:id="@+id/tvSpeciesAndGenderV2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvName"
+        app:layout_constraintTop_toBottomOf="@id/tvNameV2"
         tools:text="Human, Male" />
 
 
