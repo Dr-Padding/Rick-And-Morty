@@ -10,9 +10,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.drawing.rickandmorty.R
 import com.drawing.rickandmorty.adapters.PersonagesAdapter
 import com.drawing.rickandmorty.databinding.FragmentPersonagesBinding
+import com.drawing.rickandmorty.models.Result
 import com.drawing.rickandmorty.ui.MainActivity
 import com.drawing.rickandmorty.ui.ViewModel
-import com.drawing.rickandmorty.util.Constants
 import com.drawing.rickandmorty.util.Resource
 
 class PersonagesFragment : Fragment(R.layout.fragment_personages) {
@@ -60,26 +60,29 @@ class PersonagesFragment : Fragment(R.layout.fragment_personages) {
     }
 
     private fun setUpRecyclerView() {
-        //var viewType = PersonagesAdapter.VIEW_TYPE_ONE
-        charactersAdapter = PersonagesAdapter(1)
+        var viewType = 1
+        binding!!.ivBurgerMenu.setOnClickListener {
+            if (!toggle) {
+                viewType = 2
+                toggle = true
+            }else{
+                viewType = 1
+                toggle = false
+            }
+        }
+        charactersAdapter = PersonagesAdapter(viewType)
         binding!!.rvPersonages.apply {
             adapter = charactersAdapter
             layoutManager = LinearLayoutManager(activity)
-            charactersAdapter.getItemViewType(1)
 
-            binding!!.ivBurgerMenu.setOnClickListener {
-                if (!toggle) {
+                if (viewType == 2) {
                     layoutManager = GridLayoutManager(activity, 2)
-                    //viewType = PersonagesAdapter.VIEW_TYPE_TWO
-                    charactersAdapter.getItemViewType(2)
-
                     binding!!.ivBurgerMenu.setImageDrawable(
                         ContextCompat.getDrawable(
                             binding!!.root.context,
                             R.drawable.ic_grid_view
                         )
                     )
-                    toggle = true
                 } else {
                     layoutManager = LinearLayoutManager(activity)
                     binding!!.ivBurgerMenu.setImageDrawable(
@@ -88,13 +91,10 @@ class PersonagesFragment : Fragment(R.layout.fragment_personages) {
                             R.drawable.ic_list_view
                         )
                     )
-                    //viewType = PersonagesAdapter.VIEW_TYPE_ONE
-                    charactersAdapter.getItemViewType(1)
-                    toggle = false
                 }
             }
         }
-    }
+
 
     override fun onDestroy() {
         super.onDestroy()

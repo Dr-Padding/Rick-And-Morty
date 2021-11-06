@@ -13,18 +13,14 @@ import androidx.annotation.ColorInt
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.drawing.rickandmorty.R
-import com.drawing.rickandmorty.adapters.PersonagesAdapter.Companion.VIEW_TYPE_TWO
 import com.drawing.rickandmorty.databinding.ItemCharacterPreviewV1Binding
 import com.drawing.rickandmorty.databinding.ItemCharacterPreviewV2Binding
 import com.drawing.rickandmorty.models.Result
-import com.drawing.rickandmorty.util.Constants
-import kotlin.properties.Delegates
 
-class PersonagesAdapter(val viewType: Int) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class PersonagesAdapter(var viewType: Int) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object{
         const val VIEW_TYPE_ONE = 1
@@ -178,9 +174,8 @@ class PersonagesAdapter(val viewType: Int) : RecyclerView.Adapter<RecyclerView.V
 
     override fun getItemViewType(position: Int): Int {
         //var character = differ.currentList[position]
-        //return viewType
 
-        if (position == 2) {
+         if (viewType == 2) {
             return VIEW_TYPE_TWO
         } else {
             return VIEW_TYPE_ONE
