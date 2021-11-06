@@ -61,21 +61,15 @@ class PersonagesFragment : Fragment(R.layout.fragment_personages) {
 
     private fun setUpRecyclerView() {
         var viewType = 1
-        binding!!.ivBurgerMenu.setOnClickListener {
-            if (!toggle) {
-                viewType = 2
-                toggle = true
-            }else{
-                viewType = 1
-                toggle = false
-            }
-        }
+
         charactersAdapter = PersonagesAdapter(viewType)
         binding!!.rvPersonages.apply {
             adapter = charactersAdapter
             layoutManager = LinearLayoutManager(activity)
 
-                if (viewType == 2) {
+            binding!!.ivBurgerMenu.setOnClickListener {
+                if (!toggle) {
+                    charactersAdapter.viewType = 2
                     layoutManager = GridLayoutManager(activity, 2)
                     binding!!.ivBurgerMenu.setImageDrawable(
                         ContextCompat.getDrawable(
@@ -83,7 +77,9 @@ class PersonagesFragment : Fragment(R.layout.fragment_personages) {
                             R.drawable.ic_grid_view
                         )
                     )
+                    toggle = true
                 } else {
+                    charactersAdapter.viewType = 1
                     layoutManager = LinearLayoutManager(activity)
                     binding!!.ivBurgerMenu.setImageDrawable(
                         ContextCompat.getDrawable(
@@ -91,9 +87,11 @@ class PersonagesFragment : Fragment(R.layout.fragment_personages) {
                             R.drawable.ic_list_view
                         )
                     )
+                    toggle = false
                 }
             }
         }
+    }
 
 
     override fun onDestroy() {
