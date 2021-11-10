@@ -9,7 +9,7 @@ import com.drawing.rickandmorty.util.Resource
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
-class ViewModel(val repository: Repository) : ViewModel() {
+class ViewModelPersonages(val repository: Repository) : ViewModel() {
 
     val charactersLiveData: MutableLiveData<Resource<AllCharactersResponse>> = MutableLiveData()
 
