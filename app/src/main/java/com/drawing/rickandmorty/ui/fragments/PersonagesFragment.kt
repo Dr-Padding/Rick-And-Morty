@@ -59,9 +59,9 @@ class PersonagesFragment : Fragment(R.layout.fragment_personages) {
     }
 
     private fun setUpRecyclerView() {
-        val viewType = 1
+        val recyclerViewType = 1
 
-        charactersAdapter = PersonagesAdapter(viewType)
+        charactersAdapter = PersonagesAdapter(recyclerViewType)
 
         with(binding!!) {
             rvPersonages.apply {
@@ -70,7 +70,7 @@ class PersonagesFragment : Fragment(R.layout.fragment_personages) {
 
                 ivBurgerMenu.setOnClickListener {
                     if (!toggle) {
-                        charactersAdapter.viewType = 2
+                        charactersAdapter.recyclerViewType = 2
                         layoutManager = GridLayoutManager(activity, 2)
                         ivBurgerMenu.setImageDrawable(
                             ContextCompat.getDrawable(
@@ -80,7 +80,7 @@ class PersonagesFragment : Fragment(R.layout.fragment_personages) {
                         )
                         toggle = true
                     } else {
-                        charactersAdapter.viewType = 1
+                        charactersAdapter.recyclerViewType = 1
                         layoutManager = LinearLayoutManager(activity)
                         ivBurgerMenu.setImageDrawable(
                             ContextCompat.getDrawable(

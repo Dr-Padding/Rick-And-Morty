@@ -20,7 +20,7 @@ import com.drawing.rickandmorty.databinding.ItemCharacterPreviewV1Binding
 import com.drawing.rickandmorty.databinding.ItemCharacterPreviewV2Binding
 import com.drawing.rickandmorty.models.Result
 
-class PersonagesAdapter(var viewType: Int) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class PersonagesAdapter(var recyclerViewType: Int) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object{
         const val VIEW_TYPE_ONE = 1
@@ -159,11 +159,6 @@ class PersonagesAdapter(var viewType: Int) : RecyclerView.Adapter<RecyclerView.V
 
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-       /* if (holder is View1ViewHolder){
-            holder.bindV1(position)
-        }else if (holder is View2ViewHolder){
-            holder.bindV2(position)
-        }*/
 
         if (holder.itemViewType == VIEW_TYPE_ONE) {
             (holder as View1ViewHolder).bindV1(position)
@@ -175,7 +170,7 @@ class PersonagesAdapter(var viewType: Int) : RecyclerView.Adapter<RecyclerView.V
     override fun getItemViewType(position: Int): Int {
         //var character = differ.currentList[position]
 
-         if (viewType == 2) {
+         if (recyclerViewType == 2) {
             return VIEW_TYPE_TWO
         } else {
             return VIEW_TYPE_ONE

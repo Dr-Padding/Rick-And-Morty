@@ -11,6 +11,11 @@ import retrofit2.Response
 
 class ViewModelPersonages(val repository: Repository) : ViewModel() {
 
+    data class PersonagesScreenState(
+        val data: Resource<AllCharactersResponse> = Resource.Loading(),
+        val recyclerViewType: Int = 1
+    )
+
     val charactersLiveData: MutableLiveData<Resource<AllCharactersResponse>> = MutableLiveData()
 
     val charactersPage = 1
