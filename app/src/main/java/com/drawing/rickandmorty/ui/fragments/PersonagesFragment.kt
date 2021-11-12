@@ -37,7 +37,6 @@ class PersonagesFragment : Fragment(R.layout.fragment_personages) {
                     hideProgressBar()
                     charactersLiveData.response.data?.let { allCharactersResponse ->
                         charactersAdapter.differ.submitList(allCharactersResponse.results)
-
                     }
                 }
                 is Resource.Error -> {

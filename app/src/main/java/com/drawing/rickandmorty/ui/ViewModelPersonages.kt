@@ -13,8 +13,7 @@ import retrofit2.Response
 
 class ViewModelPersonages(val repository: Repository) : ViewModel() {
 
-    //val charactersLiveData: MutableLiveData<Resource<AllCharactersResponse>> = MutableLiveData()
-    private val _charactersLiveData: MutableLiveData<PersonagesScreenState> = MutableLiveData()
+    private val _charactersLiveData = MutableLiveData<PersonagesScreenState>().also { it.value = PersonagesScreenState() }
     val charactersLiveData : LiveData<PersonagesScreenState> = _charactersLiveData
 
     val charactersPage = 1
