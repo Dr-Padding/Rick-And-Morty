@@ -1,9 +1,11 @@
 package com.drawing.rickandmorty.ui
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.drawing.rickandmorty.models.AllCharactersResponse
+import com.drawing.rickandmorty.models.PersonagesScreenState
 import com.drawing.rickandmorty.repository.Repository
 import com.drawing.rickandmorty.util.Resource
 import kotlinx.coroutines.launch
@@ -11,12 +13,9 @@ import retrofit2.Response
 
 class ViewModelPersonages(val repository: Repository) : ViewModel() {
 
-    data class PersonagesScreenState(
-        val data: Resource<AllCharactersResponse> = Resource.Loading(),
-        val recyclerViewType: Int = 1
-    )
-
-    val charactersLiveData: MutableLiveData<Resource<AllCharactersResponse>> = MutableLiveData()
+    //val charactersLiveData: MutableLiveData<Resource<AllCharactersResponse>> = MutableLiveData()
+    private val _charactersLiveData: MutableLiveData<PersonagesScreenState> = MutableLiveData()
+    val charactersLiveData : LiveData<PersonagesScreenState> = _charactersLiveData
 
     val charactersPage = 1
 
@@ -25,13 +24,13 @@ class ViewModelPersonages(val repository: Repository) : ViewModel() {
     }
 
     fun getCharacters() = viewModelScope.launch {
-        charactersLiveData.postValue(Resource.Loading())
+        _charactersLiveData.postValue(_charactersLiveData.value?.copy(data = Resource.Loading()))
         val response = repository.getCharacters(charactersPage)
-        charactersLiveData.postValue(handleCharactersResponse(response))
+        _charactersLiveData.postValue(_charactersLiveData.value?.copy(response = handleCharactersResponse(response)))
     }
 
 
-    private fun handleCharactersResponse(response: Response<AllCharactersResponse>) : Resource<AllCharactersResponse>{
+    private fun handleCharactersResponse(response: Response<AllCharactersResponse>) : Resource<AllCharactersResponse> {
         if (response.isSuccessful){
             response.body()?.let { resultResponse ->
                 return Resource.Success(resultResponse)

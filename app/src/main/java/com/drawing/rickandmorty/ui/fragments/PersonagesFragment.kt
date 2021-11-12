@@ -5,13 +5,15 @@ import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.drawing.rickandmorty.R
 import com.drawing.rickandmorty.adapters.PersonagesAdapter
 import com.drawing.rickandmorty.databinding.FragmentPersonagesBinding
-import com.drawing.rickandmorty.ui.MainActivity
+import com.drawing.rickandmorty.repository.Repository
 import com.drawing.rickandmorty.ui.ViewModelPersonages
+import com.drawing.rickandmorty.ui.ViewModelProviderFactory
 import com.drawing.rickandmorty.util.Resource
 
 class PersonagesFragment : Fragment(R.layout.fragment_personages) {
@@ -26,20 +28,21 @@ class PersonagesFragment : Fragment(R.layout.fragment_personages) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentPersonagesBinding.bind(view)
-        viewModelPersonages = (activity as MainActivity).viewModelPersonages
+        //viewModelPersonages = (activity as MainActivity).viewModelPersonages
+        viewModelPersonages = ViewModelProvider(this, ViewModelProviderFactory(Repository())).get(ViewModelPersonages::class.java)
         setUpRecyclerView()
-        viewModelPersonages.charactersLiveData.observe(viewLifecycleOwner, { response ->
-            when (response) {
+        viewModelPersonages.charactersLiveData.observe(viewLifecycleOwner, { charactersLiveData ->
+            when (charactersLiveData.response) {
                 is Resource.Success -> {
                     hideProgressBar()
-                    response.data?.let { allCharactersResponse ->
+                    charactersLiveData.response.data?.let { allCharactersResponse ->
                         charactersAdapter.differ.submitList(allCharactersResponse.results)
 
                     }
                 }
                 is Resource.Error -> {
                     hideProgressBar()
-                    response.message?.let { message ->
+                    charactersLiveData.response.message?.let { message ->
                         Log.e(TAG, "an error occurred: $message")
 
                     }
