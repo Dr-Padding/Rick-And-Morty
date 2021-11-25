@@ -28,7 +28,6 @@ class ViewModelPersonages(val repository: Repository) : ViewModel() {
         _charactersLiveData.postValue(_charactersLiveData.value?.copy(response = handleCharactersResponse(response)))
     }
 
-
     private fun handleCharactersResponse(response: Response<AllCharactersResponse>) : Resource<AllCharactersResponse> {
         if (response.isSuccessful){
             response.body()?.let { resultResponse ->
@@ -37,6 +36,14 @@ class ViewModelPersonages(val repository: Repository) : ViewModel() {
         }
         return Resource.Error(response.message())
 
+    }
+
+    fun switchRecyclerViewType(recyclerViewType: Int) = viewModelScope.launch {
+        if(recyclerViewType == 1) {
+            _charactersLiveData.postValue(_charactersLiveData.value?.copy(recyclerViewType = 1))
+        }else{
+            _charactersLiveData.postValue(_charactersLiveData.value?.copy(recyclerViewType = 2))
+        }
     }
 
 }

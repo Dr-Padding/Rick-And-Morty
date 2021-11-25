@@ -5,15 +5,13 @@ import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.drawing.rickandmorty.R
 import com.drawing.rickandmorty.adapters.PersonagesAdapter
 import com.drawing.rickandmorty.databinding.FragmentPersonagesBinding
-import com.drawing.rickandmorty.repository.Repository
+import com.drawing.rickandmorty.ui.MainActivity
 import com.drawing.rickandmorty.ui.ViewModelPersonages
-import com.drawing.rickandmorty.ui.ViewModelProviderFactory
 import com.drawing.rickandmorty.util.Resource
 
 class PersonagesFragment : Fragment(R.layout.fragment_personages) {
@@ -28,15 +26,14 @@ class PersonagesFragment : Fragment(R.layout.fragment_personages) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentPersonagesBinding.bind(view)
-        //viewModelPersonages = (activity as MainActivity).viewModelPersonages
-        viewModelPersonages = ViewModelProvider(this, ViewModelProviderFactory(Repository())).get(ViewModelPersonages::class.java)
-        setUpRecyclerView()
+        viewModelPersonages = (activity as MainActivity).viewModelPersonages
         viewModelPersonages.charactersLiveData.observe(viewLifecycleOwner, { charactersLiveData ->
             when (charactersLiveData.response) {
                 is Resource.Success -> {
                     hideProgressBar()
                     charactersLiveData.response.data?.let { allCharactersResponse ->
                         charactersAdapter.differ.submitList(allCharactersResponse.results)
+                        setUpRecyclerView(charactersLiveData.recyclerViewType)
                     }
                 }
                 is Resource.Error -> {
@@ -49,6 +46,10 @@ class PersonagesFragment : Fragment(R.layout.fragment_personages) {
                 is Resource.Loading ->
                     showProgressBar()
             }
+
+
+
+
         })
     }
 
@@ -60,8 +61,8 @@ class PersonagesFragment : Fragment(R.layout.fragment_personages) {
         binding!!.pbPaginationProgressBar.visibility = View.VISIBLE
     }
 
-    private fun setUpRecyclerView() {
-        val recyclerViewType = 1
+
+    private fun setUpRecyclerView(recyclerViewType: Int) {
 
         charactersAdapter = PersonagesAdapter(recyclerViewType)
 
@@ -70,8 +71,10 @@ class PersonagesFragment : Fragment(R.layout.fragment_personages) {
                 adapter = charactersAdapter
                 layoutManager = LinearLayoutManager(activity)
 
+
                 ivBurgerMenu.setOnClickListener {
                     if (!toggle) {
+                        viewModelPersonages.switchRecyclerViewType(2)
                         charactersAdapter.recyclerViewType = 2
                         layoutManager = GridLayoutManager(activity, 2)
                         ivBurgerMenu.setImageDrawable(
@@ -82,6 +85,7 @@ class PersonagesFragment : Fragment(R.layout.fragment_personages) {
                         )
                         toggle = true
                     } else {
+                        viewModelPersonages.switchRecyclerViewType(1)
                         charactersAdapter.recyclerViewType = 1
                         layoutManager = LinearLayoutManager(activity)
                         ivBurgerMenu.setImageDrawable(
