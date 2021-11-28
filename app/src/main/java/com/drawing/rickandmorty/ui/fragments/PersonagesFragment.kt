@@ -74,8 +74,15 @@ class PersonagesFragment : Fragment(R.layout.fragment_personages) {
 
                 ivBurgerMenu.setOnClickListener {
                     if (!toggle) {
+
                         viewModelPersonages.switchRecyclerViewType(2)
-                        charactersAdapter.recyclerViewType = 2
+
+                        viewModelPersonages.charactersLiveData.observe(viewLifecycleOwner, {
+                            charactersAdapter.recyclerViewType = it.recyclerViewType
+                        })
+
+
+
                         layoutManager = GridLayoutManager(activity, 2)
                         ivBurgerMenu.setImageDrawable(
                             ContextCompat.getDrawable(
@@ -86,7 +93,12 @@ class PersonagesFragment : Fragment(R.layout.fragment_personages) {
                         toggle = true
                     } else {
                         viewModelPersonages.switchRecyclerViewType(1)
-                        charactersAdapter.recyclerViewType = 1
+                        viewModelPersonages.charactersLiveData.observe(viewLifecycleOwner, {
+                            charactersAdapter.recyclerViewType = it.recyclerViewType
+                        })
+
+
+                        //charactersAdapter.recyclerViewType = 1
                         layoutManager = LinearLayoutManager(activity)
                         ivBurgerMenu.setImageDrawable(
                             ContextCompat.getDrawable(
