@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.drawing.rickandmorty.R
 import com.drawing.rickandmorty.models.AllCharactersResponse
 import com.drawing.rickandmorty.models.PersonagesScreenState
 import com.drawing.rickandmorty.repository.Repository
@@ -39,11 +40,22 @@ class ViewModelPersonages(val repository: Repository) : ViewModel() {
     }
 
     fun switchRecyclerViewType(recyclerViewType: Int) = viewModelScope.launch {
-        if(recyclerViewType == 1) {
-            _charactersLiveData.postValue(_charactersLiveData.value?.copy(recyclerViewType = 1))
+//        if(recyclerViewType == 1) {
+            _charactersLiveData.postValue(_charactersLiveData.value?.copy(recyclerViewType = recyclerViewType))
+        if (recyclerViewType == 1){
+            _charactersLiveData.postValue(_charactersLiveData.value?.copy(burgerMenuImage = R.drawable.ic_list_view))
+            _charactersLiveData.postValue(_charactersLiveData.value?.copy(toggle = false))
         }else{
-            _charactersLiveData.postValue(_charactersLiveData.value?.copy(recyclerViewType = 2))
+            _charactersLiveData.postValue(_charactersLiveData.value?.copy(burgerMenuImage = R.drawable.ic_grid_view))
+            _charactersLiveData.postValue(_charactersLiveData.value?.copy(toggle = true))
         }
+//
+//
+//        }else{
+//            _charactersLiveData.postValue(_charactersLiveData.value?.copy(recyclerViewType = 2))
+////
+////
+//        }
     }
 
 }
