@@ -40,22 +40,19 @@ class ViewModelPersonages(val repository: Repository) : ViewModel() {
     }
 
     fun switchRecyclerViewType(recyclerViewType: Int) = viewModelScope.launch {
-//        if(recyclerViewType == 1) {
-            _charactersLiveData.postValue(_charactersLiveData.value?.copy(recyclerViewType = recyclerViewType))
         if (recyclerViewType == 1){
-            _charactersLiveData.postValue(_charactersLiveData.value?.copy(burgerMenuImage = R.drawable.ic_list_view))
-            _charactersLiveData.postValue(_charactersLiveData.value?.copy(toggle = false))
+            _charactersLiveData.postValue(_charactersLiveData.value?.copy(
+                recyclerViewType = recyclerViewType,
+                burgerMenuImage = R.drawable.ic_list_view,
+                toggle = false
+            ))
         }else{
-            _charactersLiveData.postValue(_charactersLiveData.value?.copy(burgerMenuImage = R.drawable.ic_grid_view))
-            _charactersLiveData.postValue(_charactersLiveData.value?.copy(toggle = true))
+            _charactersLiveData.postValue(_charactersLiveData.value?.copy(
+                recyclerViewType = recyclerViewType,
+                burgerMenuImage = R.drawable.ic_grid_view,
+                toggle = true
+            ))
         }
-//
-//
-//        }else{
-//            _charactersLiveData.postValue(_charactersLiveData.value?.copy(recyclerViewType = 2))
-////
-////
-//        }
     }
 
 }

@@ -25,67 +25,39 @@ class PersonagesFragment : Fragment(R.layout.fragment_personages) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentPersonagesBinding.bind(view)
+
+        setUpRecyclerView(1)
+
         viewModelPersonages = (activity as MainActivity).viewModelPersonages
         viewModelPersonages.charactersLiveData.observe(viewLifecycleOwner, { charactersLiveData ->
+
+            toggle = charactersLiveData.toggle
+            charactersAdapter.recyclerViewType = charactersLiveData.recyclerViewType
+
+            if (charactersLiveData.recyclerViewType == 1){
+                charactersAdapter = PersonagesAdapter(charactersLiveData.recyclerViewType)
+                binding!!.rvPersonages.apply {
+                    adapter = charactersAdapter
+                    layoutManager = LinearLayoutManager(activity)
+                }
+            }else{
+                charactersAdapter = PersonagesAdapter(charactersLiveData.recyclerViewType)
+                binding!!.rvPersonages.apply {
+                    adapter = charactersAdapter
+                    layoutManager = GridLayoutManager(activity, 2)
+                }
+            }
+
+            binding!!.ivBurgerMenu.setImageDrawable(
+                ContextCompat.getDrawable(
+                    binding!!.root.context,
+                    charactersLiveData.burgerMenuImage
+                )
+            )
+
             when (charactersLiveData.response) {
                 is Resource.Success -> {
                     hideProgressBar()
-                    //setUpRecyclerView(charactersLiveData.recyclerViewType)
-
-                    charactersAdapter = PersonagesAdapter(charactersLiveData.recyclerViewType)
-                    binding!!.rvPersonages.apply {
-                        adapter = charactersAdapter
-                        layoutManager = LinearLayoutManager(activity)
-
-                        with(binding!!) {
-
-                            ivBurgerMenu.setOnClickListener {
-                                if (!toggle) {
-
-                                    viewModelPersonages.switchRecyclerViewType(2)
-
-                                    viewModelPersonages.charactersLiveData.observe(viewLifecycleOwner, {charactersLiveData ->
-                                        charactersAdapter.recyclerViewType = charactersLiveData.recyclerViewType
-                                        layoutManager = GridLayoutManager(activity, 2)
-                                        ivBurgerMenu.setImageDrawable(
-                                            ContextCompat.getDrawable(
-                                                root.context,
-                                                charactersLiveData.burgerMenuImage
-                                            )
-                                        )
-                                        toggle = charactersLiveData.toggle
-                                    })
-
-
-
-
-
-                                } else {
-                                    viewModelPersonages.switchRecyclerViewType(1)
-                                    viewModelPersonages.charactersLiveData.observe(viewLifecycleOwner, {charactersLiveData ->
-                                        charactersAdapter.recyclerViewType = charactersLiveData.recyclerViewType
-                                        layoutManager = LinearLayoutManager(activity)
-                                        ivBurgerMenu.setImageDrawable(
-                                            ContextCompat.getDrawable(
-                                                root.context,
-                                                charactersLiveData.burgerMenuImage
-                                            )
-                                        )
-                                        toggle = charactersLiveData.toggle
-                                    })
-
-
-
-
-
-
-                                }
-                            }
-                        }
-                    }
-
-
-
                     charactersLiveData.response.data?.let { allCharactersResponse ->
                         charactersAdapter.differ.submitList(allCharactersResponse.results)
                     }
@@ -94,21 +66,14 @@ class PersonagesFragment : Fragment(R.layout.fragment_personages) {
                     hideProgressBar()
                     charactersLiveData.response.message?.let { message ->
                         Log.e(TAG, "an error occurred: $message")
-
                     }
                 }
                 is Resource.Loading ->
                     showProgressBar()
             }
-
-
-
-
         })
 
-
-
-
+        switchRecyclerViewType()
     }
 
     private fun hideProgressBar() {
@@ -120,18 +85,25 @@ class PersonagesFragment : Fragment(R.layout.fragment_personages) {
     }
 
 
-    //private fun setUpRecyclerView(recyclerViewType: Int) {
+    private fun setUpRecyclerView(recyclerViewType: Int) {
+        charactersAdapter = PersonagesAdapter(recyclerViewType)
+        binding!!.rvPersonages.apply {
+            adapter = charactersAdapter
+            layoutManager = LinearLayoutManager(activity)
+        }
+   }
 
-
-
-
-//            rvPersonages.apply {
-//                adapter = charactersAdapter
-//                layoutManager = LinearLayoutManager(activity)
-
-
-//        }
-   // }
+    private fun switchRecyclerViewType(){
+        with(binding!!) {
+            ivBurgerMenu.setOnClickListener {
+                if (!toggle) {
+                    viewModelPersonages.switchRecyclerViewType(2)
+                } else {
+                    viewModelPersonages.switchRecyclerViewType(1)
+                }
+            }
+        }
+    }
 
 
     override fun onDestroy() {
