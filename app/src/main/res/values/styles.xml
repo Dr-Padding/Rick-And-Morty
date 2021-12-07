@@ -65,4 +65,10 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">10dp</item>
     </style>
+
+    <!-- Style for circle imageView -->
+    <style name="circleImageView">
+        <item name="cornerSize">50%</item>
+    </style>
+
 </resources>

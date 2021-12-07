@@ -14,10 +14,12 @@ import retrofit2.Response
 
 class ViewModelPersonages(val repository: Repository) : ViewModel() {
 
-    private val _charactersLiveData = MutableLiveData<PersonagesScreenState>().also { it.value = PersonagesScreenState() }
-    val charactersLiveData : LiveData<PersonagesScreenState> = _charactersLiveData
+    private val _charactersLiveData =
+        MutableLiveData<PersonagesScreenState>().also { it.value = PersonagesScreenState() }
+    val charactersLiveData: LiveData<PersonagesScreenState> = _charactersLiveData
 
-    val charactersPage = 1
+    private var charactersPage = 1
+    var charactersResponse: AllCharactersResponse? = null
 
     init {
         getCharacters()
@@ -26,13 +28,27 @@ class ViewModelPersonages(val repository: Repository) : ViewModel() {
     fun getCharacters() = viewModelScope.launch {
         _charactersLiveData.postValue(_charactersLiveData.value?.copy(data = Resource.Loading()))
         val response = repository.getCharacters(charactersPage)
-        _charactersLiveData.postValue(_charactersLiveData.value?.copy(response = handleCharactersResponse(response)))
+        _charactersLiveData.postValue(
+            _charactersLiveData.value?.copy(
+                response = handleCharactersResponse(
+                    response
+                )
+            )
+        )
     }
 
-    private fun handleCharactersResponse(response: Response<AllCharactersResponse>) : Resource<AllCharactersResponse> {
-        if (response.isSuccessful){
+    private fun handleCharactersResponse(response: Response<AllCharactersResponse>): Resource<AllCharactersResponse> {
+        if (response.isSuccessful) {
             response.body()?.let { resultResponse ->
-                return Resource.Success(resultResponse)
+                charactersPage++
+                if (charactersResponse == null) {
+                    charactersResponse = resultResponse
+                } else {
+                    val oldCharacters = charactersResponse?.results
+                    val newCharacters = resultResponse.results
+                    oldCharacters?.addAll(newCharacters)
+                }
+                return Resource.Success(charactersResponse ?: resultResponse)
             }
         }
         return Resource.Error(response.message())
@@ -40,18 +56,22 @@ class ViewModelPersonages(val repository: Repository) : ViewModel() {
     }
 
     fun switchRecyclerViewType(recyclerViewType: Int) = viewModelScope.launch {
-        if (recyclerViewType == 1){
-            _charactersLiveData.postValue(_charactersLiveData.value?.copy(
-                recyclerViewType = recyclerViewType,
-                burgerMenuImage = R.drawable.ic_list_view,
-                toggle = false
-            ))
-        }else{
-            _charactersLiveData.postValue(_charactersLiveData.value?.copy(
-                recyclerViewType = recyclerViewType,
-                burgerMenuImage = R.drawable.ic_grid_view,
-                toggle = true
-            ))
+        if (recyclerViewType == 1) {
+            _charactersLiveData.postValue(
+                _charactersLiveData.value?.copy(
+                    recyclerViewType = recyclerViewType,
+                    burgerMenuImage = R.drawable.ic_list_view,
+                    toggle = false
+                )
+            )
+        } else {
+            _charactersLiveData.postValue(
+                _charactersLiveData.value?.copy(
+                    recyclerViewType = recyclerViewType,
+                    burgerMenuImage = R.drawable.ic_grid_view,
+                    toggle = true
+                )
+            )
         }
     }
 
