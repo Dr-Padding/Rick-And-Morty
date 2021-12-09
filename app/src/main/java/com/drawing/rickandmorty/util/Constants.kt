@@ -8,5 +8,6 @@ class Constants {
         const val DARK_THEME = AppCompatDelegate.MODE_NIGHT_YES
         const val FOLLOW_SYSTEM_THEME = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
         const val BASE_URL = "https://rickandmortyapi.com"
+        const val QUERY_PAGE_SIZE = 20
     }
 }

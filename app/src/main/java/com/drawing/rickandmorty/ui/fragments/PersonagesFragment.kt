@@ -14,6 +14,7 @@ import com.drawing.rickandmorty.adapters.PersonagesAdapter
 import com.drawing.rickandmorty.databinding.FragmentPersonagesBinding
 import com.drawing.rickandmorty.ui.MainActivity
 import com.drawing.rickandmorty.ui.ViewModelPersonages
+import com.drawing.rickandmorty.util.Constants.Companion.QUERY_PAGE_SIZE
 import com.drawing.rickandmorty.util.Resource
 
 class PersonagesFragment : Fragment(R.layout.fragment_personages) {
@@ -67,6 +68,7 @@ class PersonagesFragment : Fragment(R.layout.fragment_personages) {
                     charactersLiveData.response.data?.let { allCharactersResponse ->
                         charactersAdapter.differ.submitList(allCharactersResponse.results)
                     }
+
                 }
                 is Resource.Error -> {
                     hideProgressBar()
@@ -84,10 +86,12 @@ class PersonagesFragment : Fragment(R.layout.fragment_personages) {
 
     private fun hideProgressBar() {
         binding!!.pbPaginationProgressBar.visibility = View.INVISIBLE
+        isLoading = false
     }
 
     private fun showProgressBar() {
         binding!!.pbPaginationProgressBar.visibility = View.VISIBLE
+        isLoading = true
     }
 
     val scrollListener = object : RecyclerView.OnScrollListener() {
@@ -98,6 +102,18 @@ class PersonagesFragment : Fragment(R.layout.fragment_personages) {
             val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
             val visibleItemCount = layoutManager.childCount
             val totalItemCount = layoutManager.itemCount
+
+            val isNotLoadingAndNotLastPage = !isLoading && !isLastPage
+            val isAtLastItem = firstVisibleItemPosition + visibleItemCount >= totalItemCount
+            val isNotAtBeginning = firstVisibleItemPosition >= 0
+            val isTotalMoreThanVisible = totalItemCount >= QUERY_PAGE_SIZE
+            val shouldPaginate = isNotLoadingAndNotLastPage && isAtLastItem &&  isNotAtBeginning
+                    && isTotalMoreThanVisible && isScrolling
+
+            if (shouldPaginate){
+                viewModelPersonages.getCharacters()
+                isScrolling = false
+            }
         }
 
         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
@@ -114,6 +130,7 @@ class PersonagesFragment : Fragment(R.layout.fragment_personages) {
         binding!!.rvPersonages.apply {
             adapter = charactersAdapter
             layoutManager = LinearLayoutManager(activity)
+            addOnScrollListener(this@PersonagesFragment.scrollListener)
         }
    }
 
