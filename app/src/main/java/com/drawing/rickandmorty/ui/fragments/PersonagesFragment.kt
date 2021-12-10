@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.drawing.rickandmorty.R
 import com.drawing.rickandmorty.adapters.PersonagesAdapter
 import com.drawing.rickandmorty.databinding.FragmentPersonagesBinding
+import com.drawing.rickandmorty.models.AllCharactersResponse
 import com.drawing.rickandmorty.ui.MainActivity
 import com.drawing.rickandmorty.ui.ViewModelPersonages
 import com.drawing.rickandmorty.util.Constants.Companion.QUERY_PAGE_SIZE
@@ -67,8 +68,9 @@ class PersonagesFragment : Fragment(R.layout.fragment_personages) {
                     hideProgressBar()
                     charactersLiveData.response.data?.let { allCharactersResponse ->
                         charactersAdapter.differ.submitList(allCharactersResponse.results)
+                        val totalPages = allCharactersResponse.info.count / QUERY_PAGE_SIZE + 2
+                        isLastPage = viewModelPersonages.charactersPage == totalPages
                     }
-
                 }
                 is Resource.Error -> {
                     hideProgressBar()

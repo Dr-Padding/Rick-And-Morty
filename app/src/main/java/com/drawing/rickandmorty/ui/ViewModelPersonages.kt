@@ -18,7 +18,7 @@ class ViewModelPersonages(val repository: Repository) : ViewModel() {
         MutableLiveData<PersonagesScreenState>().also { it.value = PersonagesScreenState() }
     val charactersLiveData: LiveData<PersonagesScreenState> = _charactersLiveData
 
-    private var charactersPage = 1
+    var charactersPage = 1
     var charactersResponse: AllCharactersResponse? = null
 
     init {
