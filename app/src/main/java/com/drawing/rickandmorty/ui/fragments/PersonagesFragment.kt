@@ -70,6 +70,9 @@ class PersonagesFragment : Fragment(R.layout.fragment_personages) {
                         charactersAdapter.differ.submitList(allCharactersResponse.results)
                         val totalPages = allCharactersResponse.info.count / QUERY_PAGE_SIZE + 2
                         isLastPage = viewModelPersonages.charactersPage == totalPages
+                        if (isLastPage){
+                            binding!!.rvPersonages.setPadding(0, 0, 0, 0)
+                        }
                     }
                 }
                 is Resource.Error -> {
@@ -96,7 +99,7 @@ class PersonagesFragment : Fragment(R.layout.fragment_personages) {
         isLoading = true
     }
 
-    val scrollListener = object : RecyclerView.OnScrollListener() {
+    private val scrollListener = object : RecyclerView.OnScrollListener() {
 
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)
