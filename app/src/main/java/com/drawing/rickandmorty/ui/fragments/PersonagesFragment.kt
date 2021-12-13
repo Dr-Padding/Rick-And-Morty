@@ -40,19 +40,27 @@ class PersonagesFragment : Fragment(R.layout.fragment_personages) {
         viewModelPersonages.charactersLiveData.observe(viewLifecycleOwner, { charactersLiveData ->
 
             toggle = charactersLiveData.toggle
-            charactersAdapter.recyclerViewType = charactersLiveData.recyclerViewType
+            //charactersAdapter.recyclerViewType = charactersLiveData.recyclerViewType
 
             if (charactersLiveData.recyclerViewType == 1){
-                charactersAdapter = PersonagesAdapter(charactersLiveData.recyclerViewType)
-                binding!!.rvPersonages.apply {
-                    adapter = charactersAdapter
-                    layoutManager = LinearLayoutManager(activity)
+                if(binding!!.rvPersonages.layoutManager is LinearLayoutManager){
+
+                }else {
+                    charactersAdapter = PersonagesAdapter(charactersLiveData.recyclerViewType)
+                    binding!!.rvPersonages.apply {
+                        adapter = charactersAdapter
+                        layoutManager = LinearLayoutManager(activity)
+                    }
                 }
             }else{
-                charactersAdapter = PersonagesAdapter(charactersLiveData.recyclerViewType)
-                binding!!.rvPersonages.apply {
-                    adapter = charactersAdapter
-                    layoutManager = GridLayoutManager(activity, 2)
+                if(binding!!.rvPersonages.layoutManager is GridLayoutManager){
+
+                }else {
+                    charactersAdapter = PersonagesAdapter(charactersLiveData.recyclerViewType)
+                    binding!!.rvPersonages.apply {
+                        adapter = charactersAdapter
+                        layoutManager = GridLayoutManager(activity, 2)
+                    }
                 }
             }
 
@@ -67,7 +75,7 @@ class PersonagesFragment : Fragment(R.layout.fragment_personages) {
                 is Resource.Success -> {
                     hideProgressBar()
                     charactersLiveData.response.data?.let { allCharactersResponse ->
-                        charactersAdapter.differ.submitList(allCharactersResponse.results)
+                        charactersAdapter.differ.submitList(allCharactersResponse.results.toList())
                         val totalPages = allCharactersResponse.info.count / QUERY_PAGE_SIZE + 2
                         isLastPage = viewModelPersonages.charactersPage == totalPages
                         if (isLastPage){
