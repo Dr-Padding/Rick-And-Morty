@@ -168,11 +168,10 @@ class PersonagesAdapter(var recyclerViewType: Int) : RecyclerView.Adapter<Recycl
     }
 
     override fun getItemViewType(position: Int): Int {
-
-         if (recyclerViewType == 2) {
-            return VIEW_TYPE_TWO
+        return if (recyclerViewType == 2) {
+            VIEW_TYPE_TWO
         } else {
-            return VIEW_TYPE_ONE
+            VIEW_TYPE_ONE
         }
     }
 

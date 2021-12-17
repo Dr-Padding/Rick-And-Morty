@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.drawing.rickandmorty.R
 import com.drawing.rickandmorty.adapters.PersonagesAdapter
 import com.drawing.rickandmorty.databinding.FragmentPersonagesBinding
-import com.drawing.rickandmorty.models.AllCharactersResponse
 import com.drawing.rickandmorty.ui.MainActivity
 import com.drawing.rickandmorty.ui.ViewModelPersonages
 import com.drawing.rickandmorty.util.Constants.Companion.QUERY_PAGE_SIZE
@@ -40,25 +39,23 @@ class PersonagesFragment : Fragment(R.layout.fragment_personages) {
         viewModelPersonages.charactersLiveData.observe(viewLifecycleOwner, { charactersLiveData ->
 
             toggle = charactersLiveData.toggle
-            //charactersAdapter.recyclerViewType = charactersLiveData.recyclerViewType
+            charactersAdapter.recyclerViewType = charactersLiveData.recyclerViewType
 
             if (charactersLiveData.recyclerViewType == 1){
+
                 if(binding!!.rvPersonages.layoutManager is LinearLayoutManager){
 
-                }else {
-                    charactersAdapter = PersonagesAdapter(charactersLiveData.recyclerViewType)
+                }
+                if (binding!!.rvPersonages.layoutManager is GridLayoutManager) {
                     binding!!.rvPersonages.apply {
-                        adapter = charactersAdapter
                         layoutManager = LinearLayoutManager(activity)
                     }
                 }
             }else{
                 if(binding!!.rvPersonages.layoutManager is GridLayoutManager){
-
+                 
                 }else {
-                    charactersAdapter = PersonagesAdapter(charactersLiveData.recyclerViewType)
                     binding!!.rvPersonages.apply {
-                        adapter = charactersAdapter
                         layoutManager = GridLayoutManager(activity, 2)
                     }
                 }
@@ -76,6 +73,7 @@ class PersonagesFragment : Fragment(R.layout.fragment_personages) {
                     hideProgressBar()
                     charactersLiveData.response.data?.let { allCharactersResponse ->
                         charactersAdapter.differ.submitList(allCharactersResponse.results.toList())
+                        binding!!.tvTotalCharactersAmount.text = allCharactersResponse.info.count.toString()
                         val totalPages = allCharactersResponse.info.count / QUERY_PAGE_SIZE + 2
                         isLastPage = viewModelPersonages.charactersPage == totalPages
                         if (isLastPage){
@@ -111,7 +109,11 @@ class PersonagesFragment : Fragment(R.layout.fragment_personages) {
 
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)
-            val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+            val layoutManager = if (binding!!.rvPersonages.layoutManager is LinearLayoutManager) {
+                recyclerView.layoutManager as LinearLayoutManager
+            }else{
+                recyclerView.layoutManager as GridLayoutManager
+            }
             val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
             val visibleItemCount = layoutManager.childCount
             val totalItemCount = layoutManager.itemCount
