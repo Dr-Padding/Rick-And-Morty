@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="8dp"
+    android:transitionName="@string/personage_transition_name"
     >
 
     <com.google.android.material.imageview.ShapeableImageView
@@ -16,7 +17,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:transitionName="@{@string/personage_transition_name(personage.id)}"
         />
 
     <TextView

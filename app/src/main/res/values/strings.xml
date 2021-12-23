@@ -12,6 +12,6 @@
     <string name="find_a_location">Find a location</string>
     <string name="find_episode">Find episode</string>
     <string name="personage_details_transition_name">personage_details</string>
-    <string name="personage_transition_name">personage_%1$s</string>
+    <string name="personage_transition_name">%1$s</string>
 
 </resources>
