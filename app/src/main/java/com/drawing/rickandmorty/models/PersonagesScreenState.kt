@@ -12,6 +12,5 @@ data class PersonagesScreenState(
     val totalCharacterCount: Int = 826,
     val searchQuery: String? = null,
     val response: Resource<AllCharactersResponse> = Resource.Loading(),
-    val burgerMenuImage: Int = R.drawable.ic_list_view,
-    //val linearlayout: LinearLayoutManager = Linearlayout
+    val burgerMenuImage: Int = R.drawable.ic_list_view
 )

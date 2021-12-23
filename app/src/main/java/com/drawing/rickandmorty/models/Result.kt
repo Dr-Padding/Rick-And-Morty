@@ -1,5 +1,6 @@
 package com.drawing.rickandmorty.models
 
+import java.io.Serializable
 
 
 data class Result(
@@ -15,4 +16,4 @@ data class Result(
     val status: String,
     val type: String,
     val url: String
-)
+) : Serializable

@@ -1,11 +1,15 @@
 package com.drawing.rickandmorty.ui.fragments
 
+
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.AbsListView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -53,7 +57,7 @@ class PersonagesFragment : Fragment(R.layout.fragment_personages) {
                 }
             }else{
                 if(binding!!.rvPersonages.layoutManager is GridLayoutManager){
-                 
+
                 }else {
                     binding!!.rvPersonages.apply {
                         layoutManager = GridLayoutManager(activity, 2)
@@ -93,6 +97,23 @@ class PersonagesFragment : Fragment(R.layout.fragment_personages) {
         })
 
         switchRecyclerViewType()
+
+        charactersAdapter.setOnItemClickListener {
+            val bundle = Bundle().apply {
+                putSerializable("personage", it)
+            }
+
+            // Map the start View in FragmentA and the transitionName of the end View in FragmentB
+            val personageDetailsTransitionName = getString(R.string.personage_details_transition_name)
+            val extras = FragmentNavigatorExtras(view to personageDetailsTransitionName)
+            findNavController().navigate(
+                R.id.action_personagesFragment_to_personageDetails,
+                bundle,
+                null,
+                extras
+            )
+        }
+
     }
 
     private fun hideProgressBar() {
@@ -160,7 +181,6 @@ class PersonagesFragment : Fragment(R.layout.fragment_personages) {
             }
         }
     }
-
 
     override fun onDestroy() {
         super.onDestroy()

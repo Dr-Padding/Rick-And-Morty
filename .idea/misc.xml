@@ -37,9 +37,10 @@
         <entry key="..\:/Users/Azamat_Zarkesh/AndroidStudioProjects/RickandMorty/app/src/main/res/layout/item_character_preview_v2.xml" value="0.264" />
         <entry key="..\:/Users/Azamat_Zarkesh/AndroidStudioProjects/RickandMorty/app/src/main/res/layout/theme_chooser_dialog.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/Azamat_Zarkesh/AndroidStudioProjects/RickandMorty/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.2125" />
+        <entry key="app/src/main/res/layout/fragment_personage_details.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_personages.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/item_character_preview_v1.xml" value="0.22871376811594202" />
-        <entry key="app/src/main/res/layout/item_character_preview_v2.xml" value="0.22871376811594202" />
+        <entry key="app/src/main/res/layout/item_character_preview_v1.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/item_character_preview_v2.xml" value="0.25" />
         <entry key="app/src/main/res/menu/bottom_navigation_menu.xml" value="0.2828125" />
       </map>
     </option>
