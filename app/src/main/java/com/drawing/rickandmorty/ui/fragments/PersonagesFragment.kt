@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.AbsListView
-import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.FragmentNavigatorExtras
@@ -104,7 +104,7 @@ class PersonagesFragment : Fragment(R.layout.fragment_personages) {
             }
 
             // Map the start View in FragmentA and the transitionName of the end View in FragmentB
-            val personageDetailsTransitionName = getString(R.string.personage_details_transition_name)
+            val personageDetailsTransitionName = it.id.toString()
             val extras = FragmentNavigatorExtras(view to personageDetailsTransitionName)
             findNavController().navigate(
                 R.id.action_personagesFragment_to_personageDetails,

@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:transitionName="@string/personage_details_transition_name"
+    android:id="@+id/svPersonageDetails"
+
     >
 
     <androidx.constraintlayout.widget.ConstraintLayout

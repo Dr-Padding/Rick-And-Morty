@@ -79,7 +79,7 @@ class PersonagesAdapter(var recyclerViewType: Int) : RecyclerView.Adapter<Recycl
 
                 }
             }
-
+            binding.ivAvatar.transitionName = character.id.toString()
             binding.tvStatus.text = spannableString
             binding.tvName.text = character.name
             binding.tvSpeciesAndGender.text = character.species + ", " + character.gender
@@ -131,6 +131,7 @@ class PersonagesAdapter(var recyclerViewType: Int) : RecyclerView.Adapter<Recycl
                 }
             }
 
+            binding.ivAvatarV2.transitionName = character.id.toString()
             binding.tvStatusV2.text = spannableString
             binding.tvNameV2.text = character.name
             binding.tvSpeciesAndGenderV2.text = character.species + ", " + character.gender

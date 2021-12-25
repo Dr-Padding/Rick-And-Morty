@@ -23,6 +23,7 @@ class PersonageDetails: Fragment(R.layout.fragment_personage_details) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentPersonageDetailsBinding.bind(view)
         val personage = args.personage
+        binding!!.ivAvatar.transitionName = personage.id.toString()
         sharedElementEnterTransition = MaterialContainerTransform()
 
         Glide.with(this).load(personage.image).into(binding!!.ivAvatar)
