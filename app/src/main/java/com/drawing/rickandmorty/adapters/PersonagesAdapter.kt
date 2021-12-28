@@ -7,6 +7,7 @@ import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.util.TypedValue
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
@@ -19,6 +20,7 @@ import com.drawing.rickandmorty.R
 import com.drawing.rickandmorty.databinding.ItemCharacterPreviewV1Binding
 import com.drawing.rickandmorty.databinding.ItemCharacterPreviewV2Binding
 import com.drawing.rickandmorty.models.Result
+import com.google.android.material.imageview.ShapeableImageView
 
 class PersonagesAdapter(var recyclerViewType: Int) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -84,7 +86,7 @@ class PersonagesAdapter(var recyclerViewType: Int) : RecyclerView.Adapter<Recycl
             binding.tvName.text = character.name
             binding.tvSpeciesAndGender.text = character.species + ", " + character.gender
             itemView.setOnClickListener {
-                onItemClickListener?.let { it(character) }
+                onItemClickListener?.let { it(character, binding.ivAvatar) }
             }
         }
     }
@@ -136,7 +138,7 @@ class PersonagesAdapter(var recyclerViewType: Int) : RecyclerView.Adapter<Recycl
             binding.tvNameV2.text = character.name
             binding.tvSpeciesAndGenderV2.text = character.species + ", " + character.gender
             itemView.setOnClickListener {
-                onItemClickListener?.let { it(character) }
+                onItemClickListener?.let { it(character, binding.ivAvatarV2) }
             }
         }
 
@@ -160,7 +162,6 @@ class PersonagesAdapter(var recyclerViewType: Int) : RecyclerView.Adapter<Recycl
 
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-
         if (holder.itemViewType == VIEW_TYPE_ONE) {
             (holder as View1ViewHolder).bindV1(position)
         } else {
@@ -177,9 +178,9 @@ class PersonagesAdapter(var recyclerViewType: Int) : RecyclerView.Adapter<Recycl
     }
 
 
-    private var onItemClickListener: ((Result) -> Unit)? = null
+    private var onItemClickListener: ((Result, itemView: View) -> Unit)? = null
 
-    fun setOnItemClickListener(listener: (Result) -> Unit) {
+    fun setOnItemClickListener(listener: (Result, itemView: View) -> Unit) {
 
         onItemClickListener = listener
     }

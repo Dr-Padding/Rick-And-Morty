@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.drawing.rickandmorty.R
 import com.drawing.rickandmorty.adapters.PersonagesAdapter
 import com.drawing.rickandmorty.databinding.FragmentPersonagesBinding
+import com.drawing.rickandmorty.models.Result
 import com.drawing.rickandmorty.ui.MainActivity
 import com.drawing.rickandmorty.ui.ViewModelPersonages
 import com.drawing.rickandmorty.util.Constants.Companion.QUERY_PAGE_SIZE
@@ -98,14 +99,14 @@ class PersonagesFragment : Fragment(R.layout.fragment_personages) {
 
         switchRecyclerViewType()
 
-        charactersAdapter.setOnItemClickListener {
+        charactersAdapter.setOnItemClickListener { result, itemView ->
             val bundle = Bundle().apply {
-                putSerializable("personage", it)
+                putSerializable("personage", result)
             }
 
             // Map the start View in FragmentA and the transitionName of the end View in FragmentB
-            val personageDetailsTransitionName = it.id.toString()
-            val extras = FragmentNavigatorExtras(view to personageDetailsTransitionName)
+            val personageDetailsTransitionName = getString(R.string.personage_details_transition_name)
+            val extras = FragmentNavigatorExtras(itemView to personageDetailsTransitionName)
             findNavController().navigate(
                 R.id.action_personagesFragment_to_personageDetails,
                 bundle,
