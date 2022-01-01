@@ -20,7 +20,7 @@ import com.drawing.rickandmorty.R
 import com.drawing.rickandmorty.databinding.ItemCharacterPreviewV1Binding
 import com.drawing.rickandmorty.databinding.ItemCharacterPreviewV2Binding
 import com.drawing.rickandmorty.models.Result
-import com.google.android.material.imageview.ShapeableImageView
+
 
 class PersonagesAdapter(var recyclerViewType: Int) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -81,12 +81,12 @@ class PersonagesAdapter(var recyclerViewType: Int) : RecyclerView.Adapter<Recycl
 
                 }
             }
-            binding.ivAvatar.transitionName = character.id.toString()
+            binding.clItemCharacterV1.transitionName = character.id.toString()
             binding.tvStatus.text = spannableString
             binding.tvName.text = character.name
             binding.tvSpeciesAndGender.text = character.species + ", " + character.gender
             itemView.setOnClickListener {
-                onItemClickListener?.let { it(character, binding.ivAvatar) }
+                onItemClickListener?.let { it(character, binding.clItemCharacterV1) }
             }
         }
     }
@@ -133,12 +133,12 @@ class PersonagesAdapter(var recyclerViewType: Int) : RecyclerView.Adapter<Recycl
                 }
             }
 
-            binding.ivAvatarV2.transitionName = character.id.toString()
+            binding.clItemCharacterV2.transitionName = character.id.toString()
             binding.tvStatusV2.text = spannableString
             binding.tvNameV2.text = character.name
             binding.tvSpeciesAndGenderV2.text = character.species + ", " + character.gender
             itemView.setOnClickListener {
-                onItemClickListener?.let { it(character, binding.ivAvatarV2) }
+                onItemClickListener?.let { it(character, binding.clItemCharacterV2) }
             }
         }
 
