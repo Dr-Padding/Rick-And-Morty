@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/clItemEpisode"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/ivEpisodeAvatar"
+        android:layout_width="343dp"
+        android:layout_height="150dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/roundedSquareImageView"
+        tools:layout_editor_absoluteY="8dp"
+        app:layout_constraintBottom_toTopOf="@id/clLocationInfo"
+        />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clLocationInfo"
+        android:layout_width="343dp"
+        android:layout_height="68dp"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivEpisodeAvatar">
+
+        <TextView
+            android:id="@+id/tvEpisodeTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="episode 1"
+            android:textColor="?android:textColorPrimary"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@id/tvEpisodeNumber"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvEpisodeNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="episode 1"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/ivEllipse"
+            app:layout_constraintStart_toStartOf="@id/tvEpisodeTitle"
+            app:layout_constraintTop_toBottomOf="@id/tvEpisodeTitle" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivEllipse"
+            android:layout_width="2dp"
+            android:layout_height="2dp"
+            android:layout_marginStart="5dp"
+            android:background="@color/gray"
+            app:layout_constraintBottom_toBottomOf="@id/tvEpisodeNumber"
+            app:layout_constraintEnd_toStartOf="@id/tvEpisodeDate"
+            app:layout_constraintStart_toEndOf="@id/tvEpisodeNumber"
+            app:layout_constraintTop_toBottomOf="@id/tvEpisodeTitle"
+            app:shapeAppearanceOverlay="@style/circleImageView" />
+
+        <TextView
+            android:id="@+id/tvEpisodeDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="episode 1"
+            android:textSize="12sp"
+            android:layout_marginStart="5dp"
+            app:layout_constraintBottom_toBottomOf="@id/tvEpisodeNumber"
+            app:layout_constraintStart_toEndOf="@id/ivEllipse"
+            app:layout_constraintTop_toBottomOf="@id/tvEpisodeTitle" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

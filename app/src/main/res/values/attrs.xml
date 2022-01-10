@@ -6,5 +6,5 @@
     <attr name="verticalLineInSearchView" format="color"/>
     <attr name="searchViewBackgroundForEpisodesFragment" format="reference"/>
     <attr name="alivePersonageStatusTextColor" format="color"/>
-    <attr name="personageNameColor" format="color"/>
+    <attr name="avatarCircleStrokeColor" format="color"/>
 </resources>

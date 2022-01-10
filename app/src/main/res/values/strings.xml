@@ -16,4 +16,6 @@
     <string name="species">Species</string>
     <string name="origin">Origin</string>
     <string name="location">Location</string>
+    <string name="episodes">Episodes</string>
+    <string name="all_episodes">All episodes</string>
 </resources>

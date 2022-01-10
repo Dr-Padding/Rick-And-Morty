@@ -45,7 +45,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ivBlurBackground"
             app:shapeAppearanceOverlay="@style/circleImageView"
-            app:strokeColor="@color/mirage"
+            app:strokeColor="?attr/avatarCircleStrokeColor"
             app:strokeWidth="8dp" />
 
         <TextView
@@ -220,6 +220,45 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/guideline7" />
+
+        <TextView
+            android:id="@+id/tvEpisodes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/episodes"
+            android:textSize="20sp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:textColor="?android:textColorPrimary"
+            app:layout_constraintStart_toStartOf="@id/guideline2"
+            app:layout_constraintTop_toTopOf="@id/guideline7"
+            app:layout_constraintBottom_toTopOf="@id/rvEpisodes"
+            />
+
+        <TextView
+            android:id="@+id/tvAllEpisodes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/all_episodes"
+            android:textSize="12sp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            app:layout_constraintEnd_toEndOf="@id/guideline3"
+            app:layout_constraintTop_toTopOf="@id/guideline7"
+            app:layout_constraintBottom_toTopOf="@id/rvEpisodes"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvEpisodes"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:paddingBottom="50dp"
+            app:layout_constraintStart_toStartOf="@id/guideline2"
+            app:layout_constraintEnd_toEndOf="@id/guideline3"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvEpisodes"
+            />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline1"

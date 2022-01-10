@@ -23,6 +23,7 @@
         <item name="verticalLineInSearchView">@color/shuttle_gray</item>
         <item name="searchViewBackgroundForEpisodesFragment">@drawable/searchview_background_for_episodes_dark</item>
         <item name="alivePersonageStatusTextColor">@color/zombie_green</item>
+        <item name="avatarCircleStrokeColor">@color/mirage</item>
     </style>
 
     <!-- MaterialAlertDialog Design Dark -->
