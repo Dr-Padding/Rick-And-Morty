@@ -1,4 +1,4 @@
-package com.drawing.rickandmorty.models
+package com.drawing.rickandmorty.models.characters
 
 import java.io.Serializable
 

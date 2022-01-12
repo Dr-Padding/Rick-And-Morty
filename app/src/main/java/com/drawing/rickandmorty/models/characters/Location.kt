@@ -1,4 +1,4 @@
-package com.drawing.rickandmorty.models
+package com.drawing.rickandmorty.models.characters
 
 data class Location(
     val name: String,

@@ -40,7 +40,7 @@
         <entry key="app/src/main/res/drawable/filter_image_button_background_dark.xml" value="0.2838541666666667" />
         <entry key="app/src/main/res/drawable/filter_image_button_background_light.xml" value="0.2838541666666667" />
         <entry key="app/src/main/res/drawable/item_location_data_container_bg_light.xml" value="0.2838541666666667" />
-        <entry key="app/src/main/res/layout/fragment_episodes.xml" value="0.22418478260869565" />
+        <entry key="app/src/main/res/layout/fragment_episodes.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_locations.xml" value="0.22418478260869565" />
         <entry key="app/src/main/res/layout/fragment_personage_details.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_personages.xml" value="0.25" />

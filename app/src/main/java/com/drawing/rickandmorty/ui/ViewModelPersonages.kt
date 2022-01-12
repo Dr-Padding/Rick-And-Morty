@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.drawing.rickandmorty.R
-import com.drawing.rickandmorty.models.AllCharactersResponse
-import com.drawing.rickandmorty.models.PersonagesScreenState
+import com.drawing.rickandmorty.models.characters.AllCharactersResponse
+import com.drawing.rickandmorty.models.characters.PersonagesScreenState
 import com.drawing.rickandmorty.repository.Repository
 import com.drawing.rickandmorty.util.Resource
 import kotlinx.coroutines.launch
@@ -30,9 +30,7 @@ class ViewModelPersonages(val repository: Repository) : ViewModel() {
         val response = repository.getCharacters(charactersPage)
         _charactersLiveData.postValue(
             _charactersLiveData.value?.copy(
-                response = handleCharactersResponse(
-                    response
-                )
+                response = handleCharactersResponse(response)
             )
         )
     }
@@ -52,7 +50,6 @@ class ViewModelPersonages(val repository: Repository) : ViewModel() {
             }
         }
         return Resource.Error(response.message())
-
     }
 
     fun switchRecyclerViewType(recyclerViewType: Int) = viewModelScope.launch {

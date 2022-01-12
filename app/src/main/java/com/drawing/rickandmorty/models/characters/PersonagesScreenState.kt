@@ -1,7 +1,6 @@
-package com.drawing.rickandmorty.models
+package com.drawing.rickandmorty.models.characters
 
 
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.drawing.rickandmorty.R
 import com.drawing.rickandmorty.util.Resource
 

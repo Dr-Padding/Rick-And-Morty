@@ -1,6 +1,6 @@
 package com.drawing.rickandmorty.api
 
-import com.drawing.rickandmorty.models.AllCharactersResponse
+import com.drawing.rickandmorty.models.characters.AllCharactersResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

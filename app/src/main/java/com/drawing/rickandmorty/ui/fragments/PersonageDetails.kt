@@ -2,8 +2,6 @@ package com.drawing.rickandmorty.ui.fragments
 
 import android.content.Context
 import android.os.Bundle
-import android.text.Spannable
-import android.text.style.ForegroundColorSpan
 import android.util.TypedValue
 import android.view.View
 import androidx.annotation.AttrRes
@@ -22,8 +20,7 @@ import jp.wasabeef.glide.transformations.BlurTransformation
 class PersonageDetails: Fragment(R.layout.fragment_personage_details) {
 
     private var binding: FragmentPersonageDetailsBinding? = null
-    val args: PersonageDetailsArgs by navArgs()
-    val TAG = "PersonageDetails"
+    private val args: PersonageDetailsArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

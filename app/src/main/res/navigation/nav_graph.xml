@@ -42,7 +42,7 @@
         android:label="PersonageDetails" >
         <argument
             android:name="personage"
-            app:argType="com.drawing.rickandmorty.models.Result" />
+            app:argType="com.drawing.rickandmorty.models.characters.Result" />
     </fragment>
     <fragment
         android:id="@+id/locationDetails"

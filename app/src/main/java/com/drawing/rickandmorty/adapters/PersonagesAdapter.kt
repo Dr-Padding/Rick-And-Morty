@@ -19,7 +19,7 @@ import com.bumptech.glide.Glide
 import com.drawing.rickandmorty.R
 import com.drawing.rickandmorty.databinding.ItemCharacterPreviewV1Binding
 import com.drawing.rickandmorty.databinding.ItemCharacterPreviewV2Binding
-import com.drawing.rickandmorty.models.Result
+import com.drawing.rickandmorty.models.characters.Result
 
 
 class PersonagesAdapter(var recyclerViewType: Int) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
