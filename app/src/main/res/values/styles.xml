@@ -73,7 +73,7 @@
 
     <!-- Style for rounded square imageView -->
     <style name="roundedSquareImageView">
-        <item name="cornerRadius">10dp</item>
+        <item name="cornerSize">10%</item>
     </style>
 
 </resources>

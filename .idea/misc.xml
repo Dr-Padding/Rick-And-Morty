@@ -41,6 +41,7 @@
         <entry key="app/src/main/res/drawable/filter_image_button_background_light.xml" value="0.2838541666666667" />
         <entry key="app/src/main/res/drawable/item_location_data_container_bg_light.xml" value="0.2838541666666667" />
         <entry key="app/src/main/res/layout/fragment_episodes.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/fragment_episodes_recycler_view.xml" value="0.25226449275362317" />
         <entry key="app/src/main/res/layout/fragment_locations.xml" value="0.22418478260869565" />
         <entry key="app/src/main/res/layout/fragment_personage_details.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_personages.xml" value="0.25" />
@@ -49,6 +50,7 @@
         <entry key="app/src/main/res/layout/item_character_preview_v2.xml" value="0.25" />
         <entry key="app/src/main/res/layout/item_episode_preview.xml" value="0.335" />
         <entry key="app/src/main/res/layout/item_location_preview.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/item_view_pager_episodes.xml" value="0.25226449275362317" />
         <entry key="app/src/main/res/menu/bottom_navigation_menu.xml" value="0.2828125" />
       </map>
     </option>

@@ -32,10 +32,7 @@ class EpisodesAdapter : RecyclerView.Adapter<EpisodesAdapter.EpisodeViewHolder>(
         fun bind(position: Int) {
             val episode = differ.currentList[position]
 
-            Glide.with(itemView.context).load(episode.still_path).into(binding.ivEpisodeAvatar)
-
-
-
+            Glide.with(itemView.context).load("https://image.tmdb.org/t/p/original${episode.still_path}").into(binding.ivEpisodeAvatar)
 
             //binding.clItemCharacterV1.transitionName = character.id.toString()
 

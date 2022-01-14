@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.drawing.rickandmorty.models.characters.AllCharactersResponse
 import com.drawing.rickandmorty.models.episodes.EpisodesScreenState
 import com.drawing.rickandmorty.models.episodes.Season
 import com.drawing.rickandmorty.repository.Repository
@@ -21,7 +20,7 @@ class ViewModelEpisodes(val repository: Repository) : ViewModel() {
 
     var episodesResponse : Season? = null
 
-    var seasonNumber = 1
+    var seasonNumber = 2
 
     init {
         getSeason()

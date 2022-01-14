@@ -7,60 +7,42 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.drawing.rickandmorty.R
 import com.drawing.rickandmorty.adapters.EpisodesAdapter
+import com.drawing.rickandmorty.adapters.EpisodesViewPagerAdapter
 import com.drawing.rickandmorty.databinding.FragmentEpisodesBinding
 import com.drawing.rickandmorty.ui.MainActivity
 import com.drawing.rickandmorty.ui.ViewModelEpisodes
 import com.drawing.rickandmorty.util.Resource
+import com.google.android.material.tabs.TabLayoutMediator
 
 class EpisodesFragment: Fragment(R.layout.fragment_episodes) {
 
     private var binding : FragmentEpisodesBinding? = null
-    lateinit var episodesAdapter : EpisodesAdapter
-    lateinit var viewModelEpisodes : ViewModelEpisodes
-    val TAG = "EpisodesFragment"
+    //private var episodesAdapter = EpisodesAdapter()
+    lateinit var episodesViewPagerAdapter : EpisodesViewPagerAdapter
+//    lateinit var viewModelEpisodes : ViewModelEpisodes
+//    val TAG = "EpisodesFragment"
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentEpisodesBinding.bind(view)
 
-        setUpRecyclerView()
+        setUpViewPager()
+        setUpTabLayout()
 
-        viewModelEpisodes = (activity as MainActivity).viewModelEpisodes
-        viewModelEpisodes.episodesLiveData.observe(viewLifecycleOwner, { episodesLiveData ->
-            when (episodesLiveData.response){
-                is Resource.Success -> {
-                    hideProgressBar()
-                    episodesLiveData.response.data?.let { season ->
-                    episodesAdapter.differ.submitList(season.episodes.toList())
-
-                    }
-                }
-                is Resource.Error -> {
-                    hideProgressBar()
-                    episodesLiveData.response.message?.let { message ->
-                        Log.e(TAG, "an error occurred: $message")
-                    }
-                }
-                is Resource.Loading -> showProgressBar()
-            }
-        })
     }
 
-    private fun hideProgressBar() {
-        binding!!.pbPaginationProgressBar.visibility = View.INVISIBLE
+
+
+    private fun setUpViewPager(){
+        episodesViewPagerAdapter = EpisodesViewPagerAdapter(requireActivity().supportFragmentManager, lifecycle)
+        binding!!.vpPagerEpisodes.adapter = episodesViewPagerAdapter
     }
 
-    private fun showProgressBar() {
-        binding!!.pbPaginationProgressBar.visibility = View.VISIBLE
-    }
-
-    private fun setUpRecyclerView(){
-        episodesAdapter = EpisodesAdapter()
-        binding!!.rvEpisodes.apply {
-            adapter = episodesAdapter
-            layoutManager = LinearLayoutManager(activity)
-        }
+    private fun setUpTabLayout(){
+        TabLayoutMediator(binding!!.tabLayout, binding!!.vpPagerEpisodes){tab, position ->
+            tab.text = "SEASON ${position + 1}"
+        }.attach()
     }
 
 
