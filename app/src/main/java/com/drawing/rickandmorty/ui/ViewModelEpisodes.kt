@@ -20,33 +20,32 @@ class ViewModelEpisodes(val repository: Repository) : ViewModel() {
 
     var episodesResponse : Season? = null
 
-    var seasonNumber = 2
+    var seasonNumber = 1
+    private val apiKey = API_KEY
 
-    init {
-        getSeason()
-    }
+//    init {
+//        getSeason(seasonNumber, apiKey)
+//    }
 
-    fun getSeason() = viewModelScope.launch {
+    fun getSeason(seasonNumber: Int, apiKey : String) = viewModelScope.launch {
         _episodesLiveData.postValue(_episodesLiveData.value?.copy(data = Resource.Loading()))
-        val response = repository.getSeason(seasonNumber, API_KEY)
-        _episodesLiveData.postValue(
-            _episodesLiveData.value?.copy(
-                response = handleEpisodesResponse(response)
-            )
-        )
+        val response = repository.getSeason(seasonNumber, apiKey)
+        _episodesLiveData.postValue(_episodesLiveData.value?.copy(response = handleEpisodesResponse(response)))
+
+        //_episodesLiveData.postValue(_episodesLiveData.value?.copy(seasonNumber = seasonNumber))
     }
 
 
     private fun handleEpisodesResponse(response: Response<Season>): Resource<Season> {
         if (response.isSuccessful) {
             response.body()?.let { resultResponse ->
-                //charactersPage++
-                if (episodesResponse == null) {
-                    episodesResponse = resultResponse
+                episodesResponse = if (episodesResponse == null) {
+                    resultResponse
                 } else {
-//                    val oldEpisodes = episodesResponse?.episodes
-//                    val newCharacters = resultResponse.episodes
-//                    oldCharacters?.addAll(newCharacters)
+            //                    val oldEpisodes = episodesResponse?.episodes
+            //                    val newCharacters = resultResponse.episodes
+            //                    oldCharacters?.addAll(newCharacters)
+                    resultResponse
                 }
                 return Resource.Success(episodesResponse ?: resultResponse)
             }

@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.drawing.rickandmorty.R
 import com.drawing.rickandmorty.databinding.FragmentPersonageDetailsBinding
+import com.drawing.rickandmorty.ui.MainActivity
 import com.google.android.material.transition.MaterialContainerTransform
 import jp.wasabeef.glide.transformations.BlurTransformation
 
@@ -62,7 +63,6 @@ class PersonageDetails: Fragment(R.layout.fragment_personage_details) {
 
             }
         }
-
 
     }
 

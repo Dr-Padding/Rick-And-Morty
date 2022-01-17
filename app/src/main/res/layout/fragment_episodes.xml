@@ -22,6 +22,7 @@
         android:id="@+id/tabLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        app:tabMode="scrollable"
         app:layout_constraintTop_toTopOf="@id/guideline4"
         app:layout_constraintBottom_toBottomOf="@id/guideline5"
         app:layout_constraintStart_toStartOf="@id/guideline2"

@@ -3,9 +3,7 @@ package com.drawing.rickandmorty.ui.fragments
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.drawing.rickandmorty.R
 import com.drawing.rickandmorty.adapters.EpisodesAdapter
@@ -34,7 +32,6 @@ class EpisodesRecyclerViewFragment : Fragment(R.layout.fragment_episodes_recycle
                     hideProgressBar()
                     episodesLiveData.response.data?.let { season ->
                         episodesAdapter.differ.submitList(season.episodes.toList())
-
                     }
                 }
                 is Resource.Error -> {
