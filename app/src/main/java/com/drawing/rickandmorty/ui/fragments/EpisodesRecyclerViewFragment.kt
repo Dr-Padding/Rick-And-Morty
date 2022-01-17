@@ -4,15 +4,19 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.drawing.rickandmorty.R
 import com.drawing.rickandmorty.adapters.EpisodesAdapter
 import com.drawing.rickandmorty.databinding.FragmentEpisodesRecyclerViewBinding
+import com.drawing.rickandmorty.repository.Repository
+import com.drawing.rickandmorty.ui.EpisodesViewModelProviderFactory
 import com.drawing.rickandmorty.ui.MainActivity
 import com.drawing.rickandmorty.ui.ViewModelEpisodes
+import com.drawing.rickandmorty.util.Constants.Companion.API_KEY
 import com.drawing.rickandmorty.util.Resource
 
-class EpisodesRecyclerViewFragment : Fragment(R.layout.fragment_episodes_recycler_view) {
+class EpisodesRecyclerViewFragment(val seasonNumber: Int) : Fragment(R.layout.fragment_episodes_recycler_view) {
 
     private var binding: FragmentEpisodesRecyclerViewBinding? = null
     lateinit var episodesAdapter: EpisodesAdapter
@@ -25,7 +29,11 @@ class EpisodesRecyclerViewFragment : Fragment(R.layout.fragment_episodes_recycle
 
         setUpRecyclerView()
 
-        viewModelEpisodes = (activity as MainActivity).viewModelEpisodes
+        val repository = Repository()
+        val episodesViewModelProviderFactory = EpisodesViewModelProviderFactory(repository)
+
+        viewModelEpisodes = ViewModelProvider(this, episodesViewModelProviderFactory)[ViewModelEpisodes::class.java]
+        viewModelEpisodes.getSeason(seasonNumber, API_KEY)
         viewModelEpisodes.episodesLiveData.observe(viewLifecycleOwner, { episodesLiveData ->
             when (episodesLiveData.response){
                 is Resource.Success -> {

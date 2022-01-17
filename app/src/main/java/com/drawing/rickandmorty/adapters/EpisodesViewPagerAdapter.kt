@@ -18,19 +18,19 @@ class EpisodesViewPagerAdapter(
     override fun createFragment(position: Int): Fragment {
        return when(position){
            0 -> {
-               EpisodesRecyclerViewFragment()
+               EpisodesRecyclerViewFragment(1)
            }
            1 -> {
-               EpisodesRecyclerViewFragment()
+               EpisodesRecyclerViewFragment(2)
            }
            2 -> {
-               EpisodesRecyclerViewFragment()
+               EpisodesRecyclerViewFragment(3)
            }
            3 -> {
-               EpisodesRecyclerViewFragment()
+               EpisodesRecyclerViewFragment(4)
            }
            4 -> {
-               EpisodesRecyclerViewFragment()
+               EpisodesRecyclerViewFragment(5)
            }
            else -> {
                Fragment()

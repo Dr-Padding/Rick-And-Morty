@@ -14,8 +14,8 @@ import com.drawing.rickandmorty.util.Constants
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    lateinit var viewModelPersonages: ViewModelPersonages
-    lateinit var viewModelEpisodes: ViewModelEpisodes
+    //lateinit var viewModelPersonages: ViewModelPersonages
+    //lateinit var viewModelEpisodes: ViewModelEpisodes
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
@@ -26,13 +26,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        val repository = Repository()
-        val viewModelProviderFactory = ViewModelProviderFactory(repository)
-        val episodesViewModelProviderFactory = EpisodesViewModelProviderFactory(repository)
-        viewModelPersonages = ViewModelProvider(this, viewModelProviderFactory)[ViewModelPersonages::class.java]
-        viewModelEpisodes = ViewModelProvider(this, episodesViewModelProviderFactory)[ViewModelEpisodes::class.java]
-
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
         val navController = navHostFragment.navController

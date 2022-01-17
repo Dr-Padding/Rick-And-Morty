@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.AbsListView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -15,8 +16,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.drawing.rickandmorty.R
 import com.drawing.rickandmorty.adapters.PersonagesAdapter
 import com.drawing.rickandmorty.databinding.FragmentPersonagesBinding
+import com.drawing.rickandmorty.repository.Repository
 import com.drawing.rickandmorty.ui.MainActivity
 import com.drawing.rickandmorty.ui.ViewModelPersonages
+import com.drawing.rickandmorty.ui.ViewModelProviderFactory
 import com.drawing.rickandmorty.util.Constants.Companion.QUERY_PAGE_SIZE
 import com.drawing.rickandmorty.util.Resource
 
@@ -38,7 +41,10 @@ class PersonagesFragment : Fragment(R.layout.fragment_personages) {
 
         setUpRecyclerView(1)
 
-        viewModelPersonages = (activity as MainActivity).viewModelPersonages
+        val repository = Repository()
+        val viewModelProviderFactory = ViewModelProviderFactory(repository)
+
+        viewModelPersonages = ViewModelProvider(this, viewModelProviderFactory)[ViewModelPersonages::class.java]
         viewModelPersonages.charactersLiveData.observe(viewLifecycleOwner, { charactersLiveData ->
 
             toggle = charactersLiveData.toggle
