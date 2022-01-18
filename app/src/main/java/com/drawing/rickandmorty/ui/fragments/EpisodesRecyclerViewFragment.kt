@@ -16,7 +16,7 @@ import com.drawing.rickandmorty.ui.ViewModelEpisodes
 import com.drawing.rickandmorty.util.Constants.Companion.API_KEY
 import com.drawing.rickandmorty.util.Resource
 
-class EpisodesRecyclerViewFragment(val seasonNumber: Int) : Fragment(R.layout.fragment_episodes_recycler_view) {
+class EpisodesRecyclerViewFragment : Fragment(R.layout.fragment_episodes_recycler_view) {
 
     private var binding: FragmentEpisodesRecyclerViewBinding? = null
     lateinit var episodesAdapter: EpisodesAdapter
@@ -27,13 +27,18 @@ class EpisodesRecyclerViewFragment(val seasonNumber: Int) : Fragment(R.layout.fr
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentEpisodesRecyclerViewBinding.bind(view)
 
+        val bundle = arguments
+        val seasonNumber = bundle?.getInt("seasonNumber", 0)
+
         setUpRecyclerView()
 
         val repository = Repository()
         val episodesViewModelProviderFactory = EpisodesViewModelProviderFactory(repository)
 
         viewModelEpisodes = ViewModelProvider(this, episodesViewModelProviderFactory)[ViewModelEpisodes::class.java]
-        viewModelEpisodes.getSeason(seasonNumber, API_KEY)
+        if (seasonNumber != null) {
+            viewModelEpisodes.getSeason(seasonNumber, API_KEY)
+        }
         viewModelEpisodes.episodesLiveData.observe(viewLifecycleOwner, { episodesLiveData ->
             when (episodesLiveData.response){
                 is Resource.Success -> {

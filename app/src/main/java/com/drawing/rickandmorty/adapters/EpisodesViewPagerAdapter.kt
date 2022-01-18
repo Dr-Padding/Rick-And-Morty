@@ -1,6 +1,7 @@
 package com.drawing.rickandmorty.adapters
 
 
+import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
@@ -11,31 +12,42 @@ class EpisodesViewPagerAdapter(
     fragmentManager: FragmentManager,
     lifecycle: Lifecycle
 ) : FragmentStateAdapter(fragmentManager, lifecycle) {
+
+    var seasonNumber = 1
+
     override fun getItemCount(): Int {
         return 5
     }
 
     override fun createFragment(position: Int): Fragment {
-       return when(position){
+
+        val bundle = Bundle()
+
+        when(position){
            0 -> {
-               EpisodesRecyclerViewFragment(1)
+               seasonNumber = 1
            }
            1 -> {
-               EpisodesRecyclerViewFragment(2)
+               seasonNumber = 2
            }
            2 -> {
-               EpisodesRecyclerViewFragment(3)
+               seasonNumber = 3
            }
            3 -> {
-               EpisodesRecyclerViewFragment(4)
+               seasonNumber = 4
            }
            4 -> {
-               EpisodesRecyclerViewFragment(5)
+               seasonNumber = 5
            }
            else -> {
                Fragment()
            }
        }
+        bundle.putInt("seasonNumber", seasonNumber)
+        val episodeRecyclerViewFragment = EpisodesRecyclerViewFragment()
+        episodeRecyclerViewFragment.arguments = bundle
+        return episodeRecyclerViewFragment
+
     }
 
 
