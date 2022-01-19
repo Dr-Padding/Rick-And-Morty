@@ -33,13 +33,16 @@
 
     <TextView
         android:id="@+id/tvEpisodeTitle"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
+        android:ellipsize="end"
+        android:lines="1"
         android:text="episode 1"
-        android:textSize="16sp"
         android:textColor="?android:textColorPrimary"
+        android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@id/tvEpisodeDate"
+        app:layout_constraintEnd_toStartOf="@+id/ivArrowRight"
         app:layout_constraintStart_toEndOf="@id/ivEpisodeAvatar"
         app:layout_constraintTop_toBottomOf="@id/tvEpisodeNumber" />
 
@@ -59,8 +62,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_arrow_right"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/tvEpisodeTitle"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@id/tvEpisodeTitle"
+        app:layout_constraintStart_toEndOf="@id/tvEpisodeTitle"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

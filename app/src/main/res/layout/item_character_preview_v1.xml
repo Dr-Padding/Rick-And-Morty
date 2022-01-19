@@ -35,26 +35,32 @@
 
     <TextView
         android:id="@+id/tvName"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         tools:text="Rick Sanchez"
         android:layout_marginStart="10dp"
         android:textStyle="bold"
         android:textColor="?android:textColorPrimary"
+        android:ellipsize="end"
+        android:lines="1"
         app:layout_constraintTop_toBottomOf="@id/tvStatus"
         app:layout_constraintStart_toEndOf="@id/ivAvatar"
         app:layout_constraintBottom_toTopOf="@id/tvSpeciesAndGender"
+        app:layout_constraintEnd_toEndOf="parent"
         />
 
     <TextView
         android:id="@+id/tvSpeciesAndGender"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         tools:text="Human, Male"
         android:layout_marginStart="10dp"
+        android:ellipsize="end"
+        android:lines="1"
         app:layout_constraintTop_toBottomOf="@id/tvName"
         app:layout_constraintStart_toEndOf="@id/ivAvatar"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
