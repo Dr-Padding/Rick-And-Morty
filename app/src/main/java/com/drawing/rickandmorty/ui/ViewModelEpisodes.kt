@@ -31,8 +31,6 @@ class ViewModelEpisodes(val repository: Repository) : ViewModel() {
         _episodesLiveData.postValue(_episodesLiveData.value?.copy(data = Resource.Loading()))
         val response = repository.getSeason(seasonNumber, apiKey)
         _episodesLiveData.postValue(_episodesLiveData.value?.copy(response = handleEpisodesResponse(response)))
-
-        //_episodesLiveData.postValue(_episodesLiveData.value?.copy(seasonNumber = seasonNumber))
     }
 
 
