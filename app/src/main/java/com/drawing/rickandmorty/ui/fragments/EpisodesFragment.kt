@@ -24,9 +24,6 @@ class EpisodesFragment: Fragment(R.layout.fragment_episodes) {
 
     private var binding : FragmentEpisodesBinding? = null
     private lateinit var episodesViewPagerAdapter : EpisodesViewPagerAdapter
-    //lateinit var viewModelEpisodes : ViewModelEpisodes
-//    val TAG = "EpisodesFragment"
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -47,55 +44,6 @@ class EpisodesFragment: Fragment(R.layout.fragment_episodes) {
             tab.id = position
         }.attach()
     }
-
-//    private fun onTabSelected(){
-//        binding!!.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
-//            override fun onTabSelected(tab: TabLayout.Tab?) {
-//                    when(tab!!.id){
-//                        0 -> {
-//                            viewModelEpisodes.getSeason(1, API_KEY)
-//                        }
-//                        1 -> {
-//                            viewModelEpisodes.getSeason(2, API_KEY)
-//                        }
-//                        2 -> {
-//                            viewModelEpisodes.getSeason(3, API_KEY)
-//                        }
-//                        3 -> {
-//                            viewModelEpisodes.getSeason(4, API_KEY)
-//                        }
-//                        4 -> {
-//                            viewModelEpisodes.getSeason(5, API_KEY)
-//                        }
-//                    }
-//            }
-//
-//            override fun onTabUnselected(tab: TabLayout.Tab?) {
-//
-//            }
-//
-//            override fun onTabReselected(tab: TabLayout.Tab?) {
-//                when(tab!!.id){
-//                    0 -> {
-//                        viewModelEpisodes.getSeason(1, API_KEY)
-//                    }
-//                    1 -> {
-//                        viewModelEpisodes.getSeason(2, API_KEY)
-//                    }
-//                    2 -> {
-//                        viewModelEpisodes.getSeason(3, API_KEY)
-//                    }
-//                    3 -> {
-//                        viewModelEpisodes.getSeason(4, API_KEY)
-//                    }
-//                    4 -> {
-//                        viewModelEpisodes.getSeason(5, API_KEY)
-//                    }
-//                }
-//            }
-//        })
-//    }
-
 
     override fun onDestroy() {
         super.onDestroy()

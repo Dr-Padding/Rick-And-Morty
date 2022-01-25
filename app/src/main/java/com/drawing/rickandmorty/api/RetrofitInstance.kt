@@ -27,5 +27,9 @@ class RetrofitInstance {
             retrofit.create(CharactersAPI::class.java)
         }
 
+        val apiEpisodes by lazy {
+            retrofit.create(RickAndMortyEpisodesAPI::class.java)
+        }
+
     }
 }

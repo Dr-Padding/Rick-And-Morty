@@ -16,6 +16,13 @@ interface EpisodesAPI {
         @Query("api_key") apiKey: String = API_KEY
     ): Response<Season>
 
+    @GET("3/tv/60625/season/{season_number}/episode/{episode_number}")
+    suspend fun getSeasonAndEpisode(
+        @Path("season_number") seasonNumber: Int,
+        @Path("episode_number") episodeNumber: Int,
+        @Query("api_key") apiKey: String = API_KEY
+    ): Response<Season>
+
     @GET("3/tv/60625/season")
     suspend fun searchEpisode(
         @Query("name") episodeName: String,

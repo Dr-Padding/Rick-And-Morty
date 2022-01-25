@@ -28,10 +28,7 @@ class ViewModelPersonages(val repository: Repository) : ViewModel() {
     fun getCharacters() = viewModelScope.launch {
         _charactersLiveData.postValue(_charactersLiveData.value?.copy(data = Resource.Loading()))
         val response = repository.getCharacters(charactersPage)
-        _charactersLiveData.postValue(
-            _charactersLiveData.value?.copy(
-                response = handleCharactersResponse(response)
-            )
+        _charactersLiveData.postValue(_charactersLiveData.value?.copy(response = handleCharactersResponse(response))
         )
     }
 

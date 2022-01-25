@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.drawing.rickandmorty.models.episodes.EpisodesScreenState
 import com.drawing.rickandmorty.models.episodes.Season
+import com.drawing.rickandmorty.models.episodes_from_rick_and_morty_api.AllEpisodesResponse
 import com.drawing.rickandmorty.repository.Repository
-import com.drawing.rickandmorty.util.Constants.Companion.API_KEY
 import com.drawing.rickandmorty.util.Resource
 import kotlinx.coroutines.launch
 import retrofit2.Response
@@ -20,17 +20,28 @@ class ViewModelEpisodes(val repository: Repository) : ViewModel() {
 
     var episodesResponse : Season? = null
 
-    var seasonNumber = 1
-    private val apiKey = API_KEY
-
-//    init {
-//        getSeason(seasonNumber, apiKey)
-//    }
+    var episodesFromRickAndMortyAPI : AllEpisodesResponse? = null
 
     fun getSeason(seasonNumber: Int, apiKey : String) = viewModelScope.launch {
         _episodesLiveData.postValue(_episodesLiveData.value?.copy(data = Resource.Loading()))
         val response = repository.getSeason(seasonNumber, apiKey)
         _episodesLiveData.postValue(_episodesLiveData.value?.copy(response = handleEpisodesResponse(response)))
+    }
+
+    fun getSeasonAndEpisode(seasonNumber: Int, episodeNumber: Int, apiKey: String) = viewModelScope.launch {
+        _episodesLiveData.postValue(_episodesLiveData.value?.copy(data = Resource.Loading()))
+        val response = repository.getSeasonAndEpisode(seasonNumber, episodeNumber, apiKey)
+        _episodesLiveData.postValue(_episodesLiveData.value?.copy(response = handleEpisodesResponse(response)))
+    }
+
+    fun getEpisodesFromRickAndMortyAPI(listOfId: MutableList<Int>) = viewModelScope.launch {
+        _episodesLiveData.postValue(_episodesLiveData.value?.copy(
+            dataFromRickAndMortyAPI = Resource.Loading())
+        )
+        val response = repository.getEpisodesFromRickAndMortyAPI(listOfId)
+        _episodesLiveData.postValue(_episodesLiveData.value?.copy(
+            responseFromRickAndMortyAPI = handleEpisodesResponseFromRickAndMortyAPI(response))
+        )
     }
 
 
@@ -40,12 +51,23 @@ class ViewModelEpisodes(val repository: Repository) : ViewModel() {
                 episodesResponse = if (episodesResponse == null) {
                     resultResponse
                 } else {
-            //                    val oldEpisodes = episodesResponse?.episodes
-            //                    val newCharacters = resultResponse.episodes
-            //                    oldCharacters?.addAll(newCharacters)
                     resultResponse
                 }
                 return Resource.Success(episodesResponse ?: resultResponse)
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
+    private fun handleEpisodesResponseFromRickAndMortyAPI(response: Response<AllEpisodesResponse>): Resource<AllEpisodesResponse> {
+        if (response.isSuccessful) {
+            response.body()?.let { allEpisodesResponse ->
+//                episodesFromRickAndMortyAPI = if (episodesFromRickAndMortyAPI == null) {
+//                    allEpisodesResponse
+//                } else {
+//                    allEpisodesResponse
+//                }
+                return Resource.Success( allEpisodesResponse)
             }
         }
         return Resource.Error(response.message())
