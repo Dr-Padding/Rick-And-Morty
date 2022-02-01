@@ -1,5 +1,7 @@
 package com.drawing.rickandmorty.ui
 
+
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -19,31 +21,21 @@ class ViewModelEpisodes(val repository: Repository) : ViewModel() {
     val episodesLiveData : LiveData<EpisodesScreenState> = _episodesLiveData
 
     var episodesResponse : Season? = null
-
+    lateinit var listOfEpisodeIds: MutableList<Int>
     var episodesFromRickAndMortyAPI : AllEpisodesResponse? = null
+
+    init {
+        episodesInWhichCharacterAppeared()
+    }
+
+
+
 
     fun getSeason(seasonNumber: Int, apiKey : String) = viewModelScope.launch {
         _episodesLiveData.postValue(_episodesLiveData.value?.copy(data = Resource.Loading()))
         val response = repository.getSeason(seasonNumber, apiKey)
         _episodesLiveData.postValue(_episodesLiveData.value?.copy(response = handleEpisodesResponse(response)))
     }
-
-    fun getSeasonAndEpisode(seasonNumber: Int, episodeNumber: Int, apiKey: String) = viewModelScope.launch {
-        _episodesLiveData.postValue(_episodesLiveData.value?.copy(data = Resource.Loading()))
-        val response = repository.getSeasonAndEpisode(seasonNumber, episodeNumber, apiKey)
-        _episodesLiveData.postValue(_episodesLiveData.value?.copy(response = handleEpisodesResponse(response)))
-    }
-
-    fun getEpisodesFromRickAndMortyAPI(listOfId: MutableList<Int>) = viewModelScope.launch {
-        _episodesLiveData.postValue(_episodesLiveData.value?.copy(
-            dataFromRickAndMortyAPI = Resource.Loading())
-        )
-        val response = repository.getEpisodesFromRickAndMortyAPI(listOfId)
-        _episodesLiveData.postValue(_episodesLiveData.value?.copy(
-            responseFromRickAndMortyAPI = handleEpisodesResponseFromRickAndMortyAPI(response))
-        )
-    }
-
 
     private fun handleEpisodesResponse(response: Response<Season>): Resource<Season> {
         if (response.isSuccessful) {
@@ -59,6 +51,24 @@ class ViewModelEpisodes(val repository: Repository) : ViewModel() {
         return Resource.Error(response.message())
     }
 
+
+    fun getIdsOfEpisodesInWhichCharacterAppeared(listOfEpisodes: List<String>) = viewModelScope.launch {
+        listOfEpisodeIds = mutableListOf()
+
+        for (i in listOfEpisodes){
+            var episodeId = i.takeLast(2)
+            episodeId = episodeId.filter {it.isDigit()}
+            listOfEpisodeIds.add(episodeId.toInt())
+        }
+        //Log.d("ids", listOfEpisodeIds.toString())
+        repository.getEpisodesInWhichCharacterAppearedFromRickAndMortyAPI(listOfEpisodeIds)
+    }
+
+    fun episodesInWhichCharacterAppeared() = viewModelScope.launch {
+         var episodes = repository.episodesInWhichCharacterAppeared
+        _episodesLiveData.postValue(_episodesLiveData.value?.copy(listOfEpisodes = episodes))
+    }
+
     private fun handleEpisodesResponseFromRickAndMortyAPI(response: Response<AllEpisodesResponse>): Resource<AllEpisodesResponse> {
         if (response.isSuccessful) {
             response.body()?.let { allEpisodesResponse ->
@@ -67,7 +77,7 @@ class ViewModelEpisodes(val repository: Repository) : ViewModel() {
 //                } else {
 //                    allEpisodesResponse
 //                }
-                return Resource.Success( allEpisodesResponse)
+                return Resource.Success(allEpisodesResponse)
             }
         }
         return Resource.Error(response.message())

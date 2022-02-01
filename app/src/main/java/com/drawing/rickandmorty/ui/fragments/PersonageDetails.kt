@@ -25,6 +25,9 @@ import com.drawing.rickandmorty.util.Constants.Companion.API_KEY
 import com.drawing.rickandmorty.util.Resource
 import com.google.android.material.transition.MaterialContainerTransform
 import jp.wasabeef.glide.transformations.BlurTransformation
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 
 class PersonageDetails: Fragment(R.layout.fragment_personage_details) {
@@ -35,10 +38,7 @@ class PersonageDetails: Fragment(R.layout.fragment_personage_details) {
     lateinit var viewModelEpisodes : ViewModelEpisodes
     val TAG = "PersonageDetails"
 
-    lateinit var listOfEpisodeIds: MutableList<Int>
-    lateinit  var listOfEpisodes: MutableList<Result>
-    lateinit var listOfSeasonNumbers: MutableList<Int>
-    lateinit var listOfEpisodeNumbers: MutableList<Int>
+
     //lateinit var episodeCode: String
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -55,62 +55,31 @@ class PersonageDetails: Fragment(R.layout.fragment_personage_details) {
 
         viewModelEpisodes = ViewModelProvider(this, episodesViewModelProviderFactory)[ViewModelEpisodes::class.java]
 
-        listOfEpisodeIds = mutableListOf()
+        viewModelEpisodes.getIdsOfEpisodesInWhichCharacterAppeared(personage.episode)
 
-        for (i in personage.episode){
-            var episodeId = i.takeLast(2)
-            episodeId = episodeId.filter {it.isDigit()}
-            listOfEpisodeIds.add(episodeId.toInt())
-        }
-
-        viewModelEpisodes.getEpisodesFromRickAndMortyAPI(listOfEpisodeIds)
-
-        //var a = viewModelEpisodes.getEpisodesFromRickAndMortyAPI(1)
-
-
-        //Toast.makeText(requireContext(), "$listOfEpisodeIds", Toast.LENGTH_SHORT).show()
-
-
-        //viewModelEpisodes.getSeasonAndEpisode(1,1, API_KEY)
 
 
 
         viewModelEpisodes.episodesLiveData.observe(viewLifecycleOwner, { episodesLiveData ->
 
+            episodesAdapter.differ.submitList(episodesLiveData.listOfEpisodes?.toList())
 
-
-            listOfEpisodes = episodesLiveData.responseFromRickAndMortyAPI.data?.results!!
-
-            listOfSeasonNumbers = mutableListOf()
-            listOfEpisodeNumbers = mutableListOf()
-
-            for (i in listOfEpisodes){
-                //The code of the each episode
-                var episodeCode = i.episode
-                episodeCode = episodeCode.filter {it.isDigit()}
-                val seasonNumber : String = episodeCode.subSequence(0, 2) as String
-                val episodeNumber : String = episodeCode.subSequence(2, 4) as String
-                listOfSeasonNumbers.add(seasonNumber.toInt())
-                listOfEpisodeNumbers.add(episodeNumber.toInt())
-            }
-
-
-
-            when (episodesLiveData.response){
-                is Resource.Success -> {
-                    hideProgressBar()
-                    episodesLiveData.response.data?.let { season ->
-                        episodesAdapter.differ.submitList(season.episodes.toList())
-                    }
-                }
-                is Resource.Error -> {
-                    hideProgressBar()
-                    episodesLiveData.response.message?.let { message ->
-                        Log.e(TAG, "an error occurred: $message")
-                    }
-                }
-                is Resource.Loading -> showProgressBar()
-            }
+//            when (episodesLiveData.response){
+//                is Resource.Success -> {
+//                    hideProgressBar()
+//
+////                    episodesLiveData.response.data?.let { season ->
+////                        episodesAdapter.differ.submitList(season.episodes.toList())
+//                    }
+//                }
+//                is Resource.Error -> {
+//                    hideProgressBar()
+//                    episodesLiveData.response.message?.let { message ->
+//                        Log.e(TAG, "an error occurred: $message")
+//                    }
+//                }
+//                is Resource.Loading -> showProgressBar()
+//            }
         })
 
         //Toast.makeText(requireContext(), "$episodeCode", Toast.LENGTH_SHORT).show()

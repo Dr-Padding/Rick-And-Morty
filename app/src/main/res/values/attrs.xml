@@ -7,4 +7,5 @@
     <attr name="searchViewBackgroundForEpisodesFragment" format="reference"/>
     <attr name="alivePersonageStatusTextColor" format="color"/>
     <attr name="avatarCircleStrokeColor" format="color"/>
+    <attr name="progressBarCircleColor" format="color"/>
 </resources>
