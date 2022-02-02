@@ -7,12 +7,12 @@ import com.drawing.rickandmorty.api.RetrofitInstance
 import com.drawing.rickandmorty.api.RetrofitInstanceTMDB
 import com.drawing.rickandmorty.models.episodes.Episode
 import com.drawing.rickandmorty.util.Constants.Companion.API_KEY
+import kotlin.properties.Delegates
 
 
 class Repository {
 
     var cachedTMDBEpisodes: MutableList<Episode>? = null
-    var episodesInWhichCharacterAppeared : MutableList<Episode>? = null
 
     suspend fun getAllEpisodesFromTMDB(){
         if(cachedTMDBEpisodes == null) {
@@ -40,45 +40,47 @@ class Repository {
 
 
 
-    suspend fun getEpisodesInWhichCharacterAppearedFromRickAndMortyAPI(listOfId : MutableList<Int>) : MutableList<Episode>? {
+    suspend fun getEpisodesInWhichCharacterAppearedFromRickAndMortyAPI(listOfId : MutableList<Int>) {
         getAllEpisodesFromTMDB()
+
+        var episodesInWhichCharacterAppeared : MutableList<Episode>? = null
+
+        if(episodesInWhichCharacterAppeared == null) {
+            episodesInWhichCharacterAppeared = mutableListOf()
+        }
+
         var episodes = RetrofitInstance.apiEpisodes.getEpisodesFromRickAndMortyAPI(listOfId)
 
-
-        Log.d("episodes", episodes.toString())
-
-
         if(episodes.isSuccessful){
-            episodes.body()?.results.let { listOfEpisodes ->
 
-                Log.d("list", listOfEpisodes.toString())
+            episodes.body()?.let { listOfEpisodes ->
 
-                if (listOfEpisodes != null) {
-                        for (i in listOfEpisodes){
-                            //The code of the each episode
-                            var episodeCode = i.episode
+                for (i in listOfEpisodes) {
+                    //The code of the each episode
+                    var episodeCode = i.episode
 
-                            //Log.d("code", episodeCode)
+                    //Log.d("code", episodeCode)
 
-                            episodeCode = episodeCode.filter {it.isDigit()}
-                            val seasonNumber = episodeCode.subSequence(0, 2) as String
-                            val episodeNumber = episodeCode.subSequence(2, 4) as String
-                            val s = seasonNumber.toInt()
-                            val e = episodeNumber.toInt()
+                    episodeCode = episodeCode.filter { it.isDigit() }
+                    val seasonNumber = episodeCode.subSequence(0, 2) as String
+                    val episodeNumber = episodeCode.subSequence(2, 4) as String
+                    val s = seasonNumber.toInt()
+                    val e = episodeNumber.toInt()
 
-                            if(episodesInWhichCharacterAppeared == null) {
-                                episodesInWhichCharacterAppeared = mutableListOf()
-                            }
+                    episodesInWhichCharacterAppeared.addAll(
+                        cachedTMDBEpisodes!!.filter { episode -> episode.season_number == s && episode.episode_number == e }
+                    )
 
-                            for (i in cachedTMDBEpisodes!!){
-                                if (i.season_number == s && i.episode_number == e){
-                                    episodesInWhichCharacterAppeared!!.add(i)
-                                }
-                            }
-                        }
                 }
             }
+
+
+
+
+            //Log.d("episodesInWhich", episodesInWhichCharacterAppeared.size.toString())
         }
-        return episodesInWhichCharacterAppeared
+
+
+        //return episodesInWhichCharacterAppeared
     }
 }

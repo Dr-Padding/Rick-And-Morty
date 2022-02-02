@@ -62,7 +62,7 @@ class PersonageDetails: Fragment(R.layout.fragment_personage_details) {
 
         viewModelEpisodes.episodesLiveData.observe(viewLifecycleOwner, { episodesLiveData ->
 
-            episodesAdapter.differ.submitList(episodesLiveData.listOfEpisodes?.toList())
+            //episodesAdapter.differ.submitList(episodesLiveData.listOfEpisodes?.toList())
 
 //            when (episodesLiveData.response){
 //                is Resource.Success -> {

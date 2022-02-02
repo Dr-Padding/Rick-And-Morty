@@ -10,8 +10,8 @@ data class EpisodesScreenState(
     val response: Resource<Season> = Resource.Loading(),
 //    val dataFromRickAndMortyAPI: Resource<AllEpisodesResponse> = Resource.Loading(),
 //    val responseFromRickAndMortyAPI: Resource<AllEpisodesResponse> = Resource.Loading(),
-    val listOfEpisodes: MutableList<Episode>? = mutableListOf(),
-    val seasonNumber: Int = 1,
-    val episodeNumber: Int = 1,
+//    val listOfEpisodes: MutableList<Episode>? = mutableListOf(),
+//    val seasonNumber: Int = 1,
+//    val episodeNumber: Int = 1,
     val searchQuery: String? = null
 )
