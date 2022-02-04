@@ -40,7 +40,7 @@ class Repository {
 
 
 
-    suspend fun getEpisodesInWhichCharacterAppearedFromRickAndMortyAPI(listOfId : MutableList<Int>) {
+    suspend fun getEpisodesInWhichCharacterAppearedFromRickAndMortyAPI(listOfId : MutableList<Int>) : MutableList<Episode> {
         getAllEpisodesFromTMDB()
 
         var episodesInWhichCharacterAppeared : MutableList<Episode>? = null
@@ -52,15 +52,10 @@ class Repository {
         var episodes = RetrofitInstance.apiEpisodes.getEpisodesFromRickAndMortyAPI(listOfId)
 
         if(episodes.isSuccessful){
-
             episodes.body()?.let { listOfEpisodes ->
-
                 for (i in listOfEpisodes) {
                     //The code of the each episode
                     var episodeCode = i.episode
-
-                    //Log.d("code", episodeCode)
-
                     episodeCode = episodeCode.filter { it.isDigit() }
                     val seasonNumber = episodeCode.subSequence(0, 2) as String
                     val episodeNumber = episodeCode.subSequence(2, 4) as String
@@ -70,17 +65,9 @@ class Repository {
                     episodesInWhichCharacterAppeared.addAll(
                         cachedTMDBEpisodes!!.filter { episode -> episode.season_number == s && episode.episode_number == e }
                     )
-
                 }
             }
-
-
-
-
-            //Log.d("episodesInWhich", episodesInWhichCharacterAppeared.size.toString())
         }
-
-
-        //return episodesInWhichCharacterAppeared
+        return episodesInWhichCharacterAppeared
     }
 }

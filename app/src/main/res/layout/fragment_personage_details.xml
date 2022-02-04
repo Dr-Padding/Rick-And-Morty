@@ -263,8 +263,6 @@
             android:id="@+id/rvEpisodes"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:clipToPadding="false"
-            android:paddingBottom="50dp"
             app:layout_constraintStart_toStartOf="@id/guideline2"
             app:layout_constraintEnd_toEndOf="@id/guideline3"
             app:layout_constraintBottom_toBottomOf="parent"

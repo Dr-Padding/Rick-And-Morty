@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.drawing.rickandmorty.R
 import com.drawing.rickandmorty.adapters.EpisodesAdapter
+import com.drawing.rickandmorty.adapters.EpisodesInWhichCharacterAppearedAdapter
 import com.drawing.rickandmorty.databinding.FragmentPersonageDetailsBinding
 import com.drawing.rickandmorty.models.episodes_from_rick_and_morty_api.Result
 import com.drawing.rickandmorty.repository.Repository
@@ -34,21 +35,16 @@ class PersonageDetails: Fragment(R.layout.fragment_personage_details) {
 
     private var binding: FragmentPersonageDetailsBinding? = null
     private val args: PersonageDetailsArgs by navArgs()
-    lateinit var episodesAdapter: EpisodesAdapter
+    lateinit var episodesAdapter: EpisodesInWhichCharacterAppearedAdapter
     lateinit var viewModelEpisodes : ViewModelEpisodes
     val TAG = "PersonageDetails"
 
-
-    //lateinit var episodeCode: String
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentPersonageDetailsBinding.bind(view)
 
         val personage = args.personage
-
-        setUpRecyclerView()
-
 
         val repository = Repository()
         val episodesViewModelProviderFactory = EpisodesViewModelProviderFactory(repository)
@@ -57,33 +53,17 @@ class PersonageDetails: Fragment(R.layout.fragment_personage_details) {
 
         viewModelEpisodes.getIdsOfEpisodesInWhichCharacterAppeared(personage.episode)
 
+        viewModelEpisodes.episodesLiveData.observe(viewLifecycleOwner) { episodesLiveData ->
 
+            episodesAdapter = EpisodesInWhichCharacterAppearedAdapter(episodesLiveData.listOfEpisodes!!)
 
+            binding!!.rvEpisodes.apply {
+                adapter = episodesAdapter
+                layoutManager = LinearLayoutManager(activity)
+            }
 
-        viewModelEpisodes.episodesLiveData.observe(viewLifecycleOwner, { episodesLiveData ->
-
-            //episodesAdapter.differ.submitList(episodesLiveData.listOfEpisodes?.toList())
-
-//            when (episodesLiveData.response){
-//                is Resource.Success -> {
-//                    hideProgressBar()
-//
-////                    episodesLiveData.response.data?.let { season ->
-////                        episodesAdapter.differ.submitList(season.episodes.toList())
-//                    }
-//                }
-//                is Resource.Error -> {
-//                    hideProgressBar()
-//                    episodesLiveData.response.message?.let { message ->
-//                        Log.e(TAG, "an error occurred: $message")
-//                    }
-//                }
-//                is Resource.Loading -> showProgressBar()
-//            }
-        })
-
-        //Toast.makeText(requireContext(), "$episodeCode", Toast.LENGTH_SHORT).show()
-
+            episodesAdapter.differ.submitList(episodesLiveData.listOfEpisodes)
+        }
 
 
         sharedElementEnterTransition = MaterialContainerTransform()
@@ -124,14 +104,6 @@ class PersonageDetails: Fragment(R.layout.fragment_personage_details) {
 
     }
 
-    fun setUpRecyclerView(){
-        episodesAdapter = EpisodesAdapter()
-        binding!!.rvEpisodes.apply {
-            adapter = episodesAdapter
-            layoutManager = LinearLayoutManager(activity)
-        }
-    }
-
     private fun hideProgressBar() {
         binding!!.pbPaginationProgressBar.visibility = View.INVISIBLE
     }
@@ -139,8 +111,6 @@ class PersonageDetails: Fragment(R.layout.fragment_personage_details) {
     private fun showProgressBar() {
         binding!!.pbPaginationProgressBar.visibility = View.VISIBLE
     }
-
-
 
     override fun onDestroy() {
         super.onDestroy()
