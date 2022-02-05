@@ -39,8 +39,8 @@ class EpisodesRecyclerViewFragment : Fragment(R.layout.fragment_episodes_recycle
         if (seasonNumber != null) {
             viewModelEpisodes.getSeason(seasonNumber, API_KEY)
         }
-        viewModelEpisodes.episodesLiveData.observe(viewLifecycleOwner, { episodesLiveData ->
-            when (episodesLiveData.response){
+        viewModelEpisodes.episodesLiveData.observe(viewLifecycleOwner) { episodesLiveData ->
+            when (episodesLiveData.response) {
                 is Resource.Success -> {
                     hideProgressBar()
                     episodesLiveData.response.data?.let { season ->
@@ -55,7 +55,7 @@ class EpisodesRecyclerViewFragment : Fragment(R.layout.fragment_episodes_recycle
                 }
                 is Resource.Loading -> showProgressBar()
             }
-        })
+        }
 
     }
 

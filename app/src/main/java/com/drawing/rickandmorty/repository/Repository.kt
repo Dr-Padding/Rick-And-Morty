@@ -7,6 +7,7 @@ import com.drawing.rickandmorty.api.RetrofitInstance
 import com.drawing.rickandmorty.api.RetrofitInstanceTMDB
 import com.drawing.rickandmorty.models.episodes.Episode
 import com.drawing.rickandmorty.util.Constants.Companion.API_KEY
+import com.drawing.rickandmorty.util.Resource
 import kotlin.properties.Delegates
 
 
@@ -40,7 +41,9 @@ class Repository {
 
 
 
-    suspend fun getEpisodesInWhichCharacterAppearedFromRickAndMortyAPI(listOfId : MutableList<Int>) : MutableList<Episode> {
+    suspend fun getEpisodesInWhichCharacterAppearedFromRickAndMortyAPI(
+        listOfId : MutableList<Int>
+    ) : Resource<MutableList<Episode>> {
         getAllEpisodesFromTMDB()
 
         var episodesInWhichCharacterAppeared : MutableList<Episode>? = null
@@ -67,7 +70,9 @@ class Repository {
                     )
                 }
             }
+            return Resource.Success(episodesInWhichCharacterAppeared)
         }
-        return episodesInWhichCharacterAppeared
+        return Resource.Error(episodes.message())
+        //return episodesInWhichCharacterAppeared
     }
 }

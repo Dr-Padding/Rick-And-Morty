@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.util.Log
 import android.util.TypedValue
 import android.view.View
-import android.widget.Toast
 import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
 import androidx.core.content.ContextCompat
@@ -16,19 +15,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.drawing.rickandmorty.R
-import com.drawing.rickandmorty.adapters.EpisodesAdapter
 import com.drawing.rickandmorty.adapters.EpisodesInWhichCharacterAppearedAdapter
 import com.drawing.rickandmorty.databinding.FragmentPersonageDetailsBinding
-import com.drawing.rickandmorty.models.episodes_from_rick_and_morty_api.Result
 import com.drawing.rickandmorty.repository.Repository
 import com.drawing.rickandmorty.ui.*
-import com.drawing.rickandmorty.util.Constants.Companion.API_KEY
 import com.drawing.rickandmorty.util.Resource
 import com.google.android.material.transition.MaterialContainerTransform
 import jp.wasabeef.glide.transformations.BlurTransformation
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 
 class PersonageDetails: Fragment(R.layout.fragment_personage_details) {
@@ -55,14 +48,28 @@ class PersonageDetails: Fragment(R.layout.fragment_personage_details) {
 
         viewModelEpisodes.episodesLiveData.observe(viewLifecycleOwner) { episodesLiveData ->
 
-            episodesAdapter = EpisodesInWhichCharacterAppearedAdapter(episodesLiveData.listOfEpisodes!!)
+            when (episodesLiveData.listOfEpisodes) {
+                is Resource.Success -> {
+                    hideProgressBar()
+                    episodesAdapter = EpisodesInWhichCharacterAppearedAdapter(episodesLiveData.listOfEpisodes)
 
-            binding!!.rvEpisodes.apply {
-                adapter = episodesAdapter
-                layoutManager = LinearLayoutManager(activity)
+                    binding!!.rvEpisodes.apply {
+                        adapter = episodesAdapter
+                        layoutManager = LinearLayoutManager(activity)
+                    }
+
+                    episodesLiveData.listOfEpisodes.data.let {
+                        episodesAdapter.differ.submitList(it)
+                    }
+                }
+                is Resource.Error -> {
+                    hideProgressBar()
+                    episodesLiveData.listOfEpisodes.message?.let { message ->
+                        Log.e(TAG, "an error occurred: $message")
+                    }
+                }
+                is Resource.Loading -> showProgressBar()
             }
-
-            episodesAdapter.differ.submitList(episodesLiveData.listOfEpisodes)
         }
 
 

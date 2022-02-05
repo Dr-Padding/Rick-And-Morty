@@ -45,14 +45,14 @@ class PersonagesFragment : Fragment(R.layout.fragment_personages) {
         val viewModelProviderFactory = ViewModelProviderFactory(repository)
 
         viewModelPersonages = ViewModelProvider(this, viewModelProviderFactory)[ViewModelPersonages::class.java]
-        viewModelPersonages.charactersLiveData.observe(viewLifecycleOwner, { charactersLiveData ->
+        viewModelPersonages.charactersLiveData.observe(viewLifecycleOwner) { charactersLiveData ->
 
             toggle = charactersLiveData.toggle
             charactersAdapter.recyclerViewType = charactersLiveData.recyclerViewType
 
-            if (charactersLiveData.recyclerViewType == 1){
+            if (charactersLiveData.recyclerViewType == 1) {
 
-                if(binding!!.rvPersonages.layoutManager is LinearLayoutManager){
+                if (binding!!.rvPersonages.layoutManager is LinearLayoutManager) {
 
                 }
                 if (binding!!.rvPersonages.layoutManager is GridLayoutManager) {
@@ -60,10 +60,10 @@ class PersonagesFragment : Fragment(R.layout.fragment_personages) {
                         layoutManager = LinearLayoutManager(activity)
                     }
                 }
-            }else{
-                if(binding!!.rvPersonages.layoutManager is GridLayoutManager){
+            } else {
+                if (binding!!.rvPersonages.layoutManager is GridLayoutManager) {
 
-                }else {
+                } else {
                     binding!!.rvPersonages.apply {
                         layoutManager = GridLayoutManager(activity, 2)
                     }
@@ -82,10 +82,11 @@ class PersonagesFragment : Fragment(R.layout.fragment_personages) {
                     hideProgressBar()
                     charactersLiveData.response.data?.let { allCharactersResponse ->
                         charactersAdapter.differ.submitList(allCharactersResponse.results.toList())
-                        binding!!.tvTotalCharactersAmount.text = allCharactersResponse.info.count.toString()
+                        binding!!.tvTotalCharactersAmount.text =
+                            allCharactersResponse.info.count.toString()
                         val totalPages = allCharactersResponse.info.count / QUERY_PAGE_SIZE + 2
                         isLastPage = viewModelPersonages.charactersPage == totalPages
-                        if (isLastPage){
+                        if (isLastPage) {
                             binding!!.rvPersonages.setPadding(0, 0, 0, 0)
                         }
                     }
@@ -99,7 +100,7 @@ class PersonagesFragment : Fragment(R.layout.fragment_personages) {
                 is Resource.Loading ->
                     showProgressBar()
             }
-        })
+        }
 
         switchRecyclerViewType()
 

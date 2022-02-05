@@ -6,6 +6,6 @@ import com.drawing.rickandmorty.util.Resource
 data class EpisodesScreenState(
     val data: Resource<Season> = Resource.Loading(),
     val response: Resource<Season> = Resource.Loading(),
-    val listOfEpisodes: MutableList<Episode>? = mutableListOf(),
+    val listOfEpisodes: Resource<MutableList<Episode>> = Resource.Loading(),
     val searchQuery: String? = null
 )
