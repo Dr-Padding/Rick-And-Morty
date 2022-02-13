@@ -7,7 +7,7 @@
     tools:context=".ui.fragments.EpisodesRecyclerViewFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvEpisodes"
+        android:id="@+id/rvSeasons"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ProgressBar
-        android:id="@+id/pbPaginationProgressBar"
+        android:id="@+id/pbProgressBar"
         style="?attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -10,9 +10,10 @@ import com.drawing.rickandmorty.R
 import com.drawing.rickandmorty.adapters.EpisodesAdapter
 import com.drawing.rickandmorty.databinding.FragmentEpisodesRecyclerViewBinding
 import com.drawing.rickandmorty.repository.Repository
-import com.drawing.rickandmorty.ui.EpisodesViewModelProviderFactory
+
 import com.drawing.rickandmorty.ui.MainActivity
 import com.drawing.rickandmorty.ui.ViewModelEpisodes
+import com.drawing.rickandmorty.ui.ViewModelProviderFactory
 import com.drawing.rickandmorty.util.Constants.Companion.API_KEY
 import com.drawing.rickandmorty.util.Resource
 
@@ -33,7 +34,7 @@ class EpisodesRecyclerViewFragment : Fragment(R.layout.fragment_episodes_recycle
         setUpRecyclerView()
 
         val repository = Repository()
-        val episodesViewModelProviderFactory = EpisodesViewModelProviderFactory(repository)
+        val episodesViewModelProviderFactory = ViewModelProviderFactory(repository)
 
         viewModelEpisodes = ViewModelProvider(this, episodesViewModelProviderFactory)[ViewModelEpisodes::class.java]
         if (seasonNumber != null) {
@@ -61,18 +62,18 @@ class EpisodesRecyclerViewFragment : Fragment(R.layout.fragment_episodes_recycle
 
     private fun setUpRecyclerView() {
         episodesAdapter = EpisodesAdapter()
-        binding!!.rvEpisodes.apply {
+        binding!!.rvSeasons.apply {
             adapter = episodesAdapter
             layoutManager = LinearLayoutManager(activity)
         }
     }
 
     private fun hideProgressBar() {
-        binding!!.pbPaginationProgressBar.visibility = View.INVISIBLE
+        binding!!.pbProgressBar.visibility = View.INVISIBLE
     }
 
     private fun showProgressBar() {
-        binding!!.pbPaginationProgressBar.visibility = View.VISIBLE
+        binding!!.pbProgressBar.visibility = View.VISIBLE
     }
 
     override fun onDestroy() {

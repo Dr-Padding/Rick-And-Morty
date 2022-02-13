@@ -14,8 +14,6 @@ import com.drawing.rickandmorty.util.Constants
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    //lateinit var viewModelPersonages: ViewModelPersonages
-    //lateinit var viewModelEpisodes: ViewModelEpisodes
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)

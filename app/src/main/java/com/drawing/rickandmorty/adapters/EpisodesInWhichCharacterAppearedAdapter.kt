@@ -14,7 +14,7 @@ import com.drawing.rickandmorty.util.Resource
 
 
 class EpisodesInWhichCharacterAppearedAdapter(
-    val episodes: Resource.Success<MutableList<Episode>>
+    //val episodes: Resource.Success<MutableList<Episode>>
     ) : RecyclerView.Adapter<EpisodesInWhichCharacterAppearedAdapter.EpisodeViewHolder>() {
 
     private val differCallback = object : DiffUtil.ItemCallback<Episode>() {

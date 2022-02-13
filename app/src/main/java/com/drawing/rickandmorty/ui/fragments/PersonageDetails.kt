@@ -5,11 +5,14 @@ import android.os.Bundle
 import android.util.Log
 import android.util.TypedValue
 import android.view.View
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.addCallback
 import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -40,24 +43,20 @@ class PersonageDetails: Fragment(R.layout.fragment_personage_details) {
         val personage = args.personage
 
         val repository = Repository()
-        val episodesViewModelProviderFactory = EpisodesViewModelProviderFactory(repository)
+        val episodesViewModelProviderFactory = ViewModelProviderFactory(repository)
 
         viewModelEpisodes = ViewModelProvider(this, episodesViewModelProviderFactory)[ViewModelEpisodes::class.java]
 
         viewModelEpisodes.getIdsOfEpisodesInWhichCharacterAppeared(personage.episode)
+
+        setUpRecyclerView()
 
         viewModelEpisodes.episodesLiveData.observe(viewLifecycleOwner) { episodesLiveData ->
 
             when (episodesLiveData.listOfEpisodes) {
                 is Resource.Success -> {
                     hideProgressBar()
-                    episodesAdapter = EpisodesInWhichCharacterAppearedAdapter(episodesLiveData.listOfEpisodes)
-
-                    binding!!.rvEpisodes.apply {
-                        adapter = episodesAdapter
-                        layoutManager = LinearLayoutManager(activity)
-                    }
-
+                    //episodesAdapter = EpisodesInWhichCharacterAppearedAdapter(episodesLiveData.listOfEpisodes)
                     episodesLiveData.listOfEpisodes.data.let {
                         episodesAdapter.differ.submitList(it)
                     }
@@ -109,6 +108,35 @@ class PersonageDetails: Fragment(R.layout.fragment_personage_details) {
             }
         }
 
+
+
+        binding!!.ivArrowBack.setOnClickListener {
+
+            // This callback will only be called when MyFragment is at least Started.
+//            requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(false) {
+//                override fun handleOnBackPressed() {
+//
+//                }
+//
+//            })
+
+            // This callback will only be called when MyFragment is at least Started.
+            requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+                // Handle the back button event
+            }
+
+            // The callback can be enabled or disabled here or in the lambda
+
+        }
+
+    }
+
+    fun setUpRecyclerView(){
+        episodesAdapter = EpisodesInWhichCharacterAppearedAdapter()
+        binding!!.rvEpisodesInWichCharacterAppear.apply {
+            adapter = episodesAdapter
+            layoutManager = LinearLayoutManager(activity)
+        }
     }
 
     private fun hideProgressBar() {

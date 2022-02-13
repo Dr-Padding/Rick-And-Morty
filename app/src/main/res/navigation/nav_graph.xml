@@ -43,6 +43,9 @@
         <argument
             android:name="personage"
             app:argType="com.drawing.rickandmorty.models.characters.Result" />
+        <action
+            android:id="@+id/action_personageDetails_to_personagesFragment"
+            app:destination="@id/personagesFragment" />
     </fragment>
     <fragment
         android:id="@+id/locationDetails"
